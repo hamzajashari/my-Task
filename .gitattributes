@@ -1,0 +1,11 @@
+*.dart linguist-detectable=true
+*.j* linguist-detectable=false
+*.html linguist-detectable=false
+*.x* linguist-detectable=false
+*.c* linguist-detectable=false
+*.m linguist-detectable=false
+*.h linguist-detectable=false
+*.txt linguist-detectable=false
+*.gradle linguist-detectable=false
+*.plist linguist-detectable=false
+
