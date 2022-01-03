@@ -6,9 +6,6 @@ class FeedPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Map"),
-      ),
       body: Center(child: Text('Map', style: GoogleFonts.inter(fontSize: 60,fontWeight: FontWeight.w500))),
     );
   }

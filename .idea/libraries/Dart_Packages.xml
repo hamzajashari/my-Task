@@ -16,13 +16,6 @@
             </list>
           </value>
         </entry>
-        <entry key="bottomnavbar">
-          <value>
-            <list>
-              <option value="$PROJECT_DIR$/bottomnavbar/lib" />
-            </list>
-          </value>
-        </entry>
         <entry key="characters">
           <value>
             <list>
@@ -107,10 +100,24 @@
             </list>
           </value>
         </entry>
+        <entry key="flutter_share_me">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../../../../../Programs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_share_me-0.11.2/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="flutter_test">
           <value>
             <list>
               <option value="$PROJECT_DIR$/../../../../../Programs/Flutter/flutter/packages/flutter_test/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="font_awesome_flutter">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../../../../../Programs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/font_awesome_flutter-9.2.0/lib" />
             </list>
           </value>
         </entry>
@@ -247,6 +254,13 @@
             </list>
           </value>
         </entry>
+        <entry key="snapping_sheet">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../../../../../Programs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/snapping_sheet-3.1.0/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="source_span">
           <value>
             <list>
@@ -320,7 +334,6 @@
       </option>
     </properties>
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/bottomnavbar/lib" />
       <root url="file://$PROJECT_DIR$/../../../../../Programs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.8.2/lib" />
       <root url="file://$PROJECT_DIR$/../../../../../Programs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/boolean_selector-2.1.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../../Programs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/characters-1.2.0/lib" />
@@ -334,6 +347,8 @@
       <root url="file://$PROJECT_DIR$/../../../../../Programs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/ffi-1.1.2/lib" />
       <root url="file://$PROJECT_DIR$/../../../../../Programs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/file-6.1.2/lib" />
       <root url="file://$PROJECT_DIR$/../../../../../Programs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_lints-1.0.4/lib" />
+      <root url="file://$PROJECT_DIR$/../../../../../Programs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_share_me-0.11.2/lib" />
+      <root url="file://$PROJECT_DIR$/../../../../../Programs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/font_awesome_flutter-9.2.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../../Programs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/google_fonts-2.1.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../../Programs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.13.4/lib" />
       <root url="file://$PROJECT_DIR$/../../../../../Programs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-4.0.0/lib" />
@@ -352,6 +367,7 @@
       <root url="file://$PROJECT_DIR$/../../../../../Programs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/platform-3.1.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../../Programs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/plugin_platform_interface-2.0.2/lib" />
       <root url="file://$PROJECT_DIR$/../../../../../Programs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/process-4.2.4/lib" />
+      <root url="file://$PROJECT_DIR$/../../../../../Programs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/snapping_sheet-3.1.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../../Programs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/source_span-1.8.1/lib" />
       <root url="file://$PROJECT_DIR$/../../../../../Programs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/stack_trace-1.10.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../../Programs/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/stream_channel-2.1.0/lib" />

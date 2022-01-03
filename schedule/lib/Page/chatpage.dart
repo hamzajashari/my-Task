@@ -7,9 +7,6 @@ class ChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Chat"),
-      ),
       body: Center(child: Text('Chat', style: GoogleFonts.inter(fontSize: 60,fontWeight: FontWeight.w500))),
     );
   }
