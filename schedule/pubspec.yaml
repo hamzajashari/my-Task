@@ -42,7 +42,13 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_native_splash:
 
+flutter_native_splash:
+  color: "#D7DCF6"
+  image: assets/logo.png
+  android: true
+  ios: true
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -58,17 +64,7 @@ flutter:
   assets:
     - assets/logo.png
     - assets/icons/facebook_icon.png
-  fonts:
-    - family: Raleway
-      fonts:
-        - asset: fonts/Raleway-Regular.ttf
-        - asset: fonts/Raleway-Italic.ttf
-          style: italic
-    - family: RobotoMono
-      fonts:
-        - asset: fonts/RobotoMono-Regular.ttf
-        - asset: fonts/RobotoMono-Bold.ttf
-          weight: 700
+
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

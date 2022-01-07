@@ -1,4 +1,3 @@
-// ignore_for_file: camel_case_types
 import 'package:bottomnavbar/Page/chatpage.dart';
 import 'package:bottomnavbar/Page/feedpage.dart';
 import 'package:bottomnavbar/Page/schedulepage.dart';
@@ -41,12 +40,12 @@ class _navbarscreenState extends State<navbarscreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.camera),
             label: "Camera",
-            backgroundColor: Colors.deepPurple,
+            backgroundColor: Colors.lightGreen,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.info),
-            label: "Info",
-            backgroundColor: Colors.green,
+            icon: Icon(Icons.person),
+            label: "Profile",
+            backgroundColor: Colors.purpleAccent,
           ),
         ],
       ),
