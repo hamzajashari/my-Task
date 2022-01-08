@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -28,13 +26,8 @@ class _ProfilePageState extends State<ProfilePage> {
             padding: EdgeInsets.zero,
             children: <Widget>[
               BuildTop(),
+
               BuildContent(),
-              Social(),
-              ProjectAndFollowers(),
-              const SizedBox(
-                height: 30,
-              ),
-              Contact(),
             ],
           )
       ),
@@ -54,7 +47,6 @@ class _ProfilePageState extends State<ProfilePage> {
       ],
     );
   }
-
   Widget CoverImage() =>
       Container(
         color: Colors.grey,
@@ -67,24 +59,49 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       );
 
-  Widget ProfileImage() =>
-      CircleAvatar(
-        radius: profileHeight / 2,
-        backgroundColor: Colors.grey.shade800,
-        backgroundImage: NetworkImage(
-            'https://static-cdn.jtvnw.net/jtv_user_pictures/programming-profile_image-82029196c527ed90-300x300.png'),
-      );
+  Widget ProfileImage() => Stack(
+    clipBehavior: Clip.none,
+    alignment: Alignment.center,
+    children: [
+          CircleAvatar(
+             radius: profileHeight / 2,
+             backgroundColor: Colors.grey.shade800,
+              backgroundImage: NetworkImage('https://static-cdn.jtvnw.net/jtv_user_pictures/programming-profile_image-82029196c527ed90-300x300.png'),
+    ),
+      Positioned(
+        height: 35,
+        width: 35,
+        top: 110,
+        left: 110,
+        child: FloatingActionButton(
+          onPressed: () {
+            print("Add new Profile Picture //TODO");
+          },
+          backgroundColor: Colors.blueAccent,
+          child: const Icon(Icons.add),
+        ),
+      )
+    ],
+  );
 
   Widget BuildContent() =>
       Column(
-        children: const [
-          SizedBox(height: 8),
+        children: <Widget> [
+          const SizedBox(
+            height: 28,
+          ),
           Padding(
             padding: EdgeInsets.only(top: 65),
             child: Text('Hamza Jashari',
                 style: TextStyle(fontSize: 28, fontWeight: FontWeight.w700)),
           ),
           Text('Flutter Developer', style: TextStyle(fontFamily: 'RobotoMono')),
+          Social(),
+          ProjectAndFollowers(),
+          const SizedBox(
+            height: 30,
+          ),
+          Contact(),
         ],
       );
 
