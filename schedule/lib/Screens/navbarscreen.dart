@@ -1,7 +1,8 @@
-import 'package:bottomnavbar/Page/chatpage.dart';
+import 'package:bottomnavbar/Page/camerapage.dart';
 import 'package:bottomnavbar/Page/feedpage.dart';
 import 'package:bottomnavbar/Page/schedulepage.dart';
 import 'package:bottomnavbar/Page/profilepage.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
 class navbarscreen extends StatefulWidget {
@@ -16,7 +17,7 @@ class _navbarscreenState extends State<navbarscreen> {
   final screens =[
     SchedulePage(),
     FeedPage(),
-    ChatPage(),
+    CameraPage(),
     ProfilePage(),
   ];
   @override
