@@ -1,6 +1,14 @@
+import'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:image_picker/image_picker.dart';
+
+const String _Github = 'https://github.com/hamzajashari';
+const String _Facebook = 'https://facebook.com/hamzajashari10';
+const String _In = 'https://www.linkedin.com/in/hamzajashari';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -10,6 +18,8 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  File? _selectedFile;
+  String _phone = '070/123-456';
   final double coverHeight = 280;
   final profileHeight = 144;
 
@@ -66,7 +76,7 @@ class _ProfilePageState extends State<ProfilePage> {
           CircleAvatar(
              radius: profileHeight / 2,
              backgroundColor: Colors.grey.shade800,
-              backgroundImage: NetworkImage('https://static-cdn.jtvnw.net/jtv_user_pictures/programming-profile_image-82029196c527ed90-300x300.png'),
+             backgroundImage: NetworkImage('https://static-cdn.jtvnw.net/jtv_user_pictures/programming-profile_image-82029196c527ed90-300x300.png'),
     ),
       Positioned(
         height: 35,
@@ -112,7 +122,9 @@ class _ProfilePageState extends State<ProfilePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             InkWell(
-              onTap: () {},
+              onTap: () => setState(() {
+                _launchInBrowser(_Facebook);
+              }),
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Image.network(
@@ -121,17 +133,21 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             InkWell(
-              onTap: () {},
-
+              onTap: () => setState(() {
+                _launchInBrowser(_Github);
+              }),
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Image.network(
                   'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/2048px-Octicons-mark-github.svg.png',
                   width: 40, height: 40,),
               ),
+
             ),
             InkWell(
-              onTap: () {},
+              onTap: () => setState(() {
+                _launchInBrowser(_In);
+              }),
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Image.network(
@@ -204,7 +220,6 @@ class _ProfilePageState extends State<ProfilePage> {
         elevation: 7.0,
         borderRadius: BorderRadius.all(const Radius.circular(10.0)),
         child: InkWell(
-          onTap: () {},
           child: Ink(
             decoration: const BoxDecoration(
               gradient: LinearGradient(colors: [Colors.purpleAccent, Colors.deepPurpleAccent]),
@@ -234,5 +249,32 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
         ),
+
       );
+
+  Future<void> _launchInBrowser(String url) async {
+    if (!await launch(
+      url,
+      forceSafariVC: false,
+      forceWebView: false,
+      headers: <String, String>{'my_header_key': 'my_header_value'},
+    )) {
+      throw 'Could not launch $url';
+    }
+  }
+
+  Future getImage(ImageSource source) async {
+    try {
+      final image = await ImagePicker.pickImage(source: source);
+      if (image == null) return;
+      final imageTemporary = File(image.path);
+      setState(() {
+        _selectedFile = imageTemporary;
+      });
+    }
+    on PlatformException catch(e){
+      print('Failed to pick image: $e');
+    }
+  }
+
 }

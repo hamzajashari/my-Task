@@ -1,5 +1,5 @@
 import 'package:bottomnavbar/Page/camerapage.dart';
-import 'package:bottomnavbar/Page/feedpage.dart';
+import 'package:bottomnavbar/Page/mappage.dart';
 import 'package:bottomnavbar/Page/schedulepage.dart';
 import 'package:bottomnavbar/Page/profilepage.dart';
 import 'package:camera/camera.dart';
@@ -16,7 +16,7 @@ class _navbarscreenState extends State<navbarscreen> {
   int currentIndex =0;
   final screens =[
     SchedulePage(),
-    FeedPage(),
+    Map(),
     CameraPage(),
     ProfilePage(),
   ];
