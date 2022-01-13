@@ -1,70 +1,43 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 
-class Map extends StatefulWidget{
+class MapExample extends StatefulWidget{
   @override
-  _MapPage createState() => _MapPage();
+  _MapPageExample createState() => _MapPageExample();
   }
 
-class _MapPage extends State<Map> {
-  Completer<GoogleMapController> _controllerGoogleMap=Completer();
-  GoogleMapController? newGoogleMapController;
-  Position? currentPosition;
-  double bottomPaddingOfMap =0;
+class _MapPageExample extends State<MapExample> {
+  static const _initialCameraPosition= CameraPosition(target: LatLng(41.6086, 21.7453),
+  zoom: 11.5);
 
-
-  void locatePosition() async
-  {
-  Position posiiton= await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-  currentPosition=posiiton;
-  //get current location lat lng
-  LatLng latlngPosition=LatLng(posiiton.latitude,posiiton.longitude);
-  //if my location moves
-  CameraPosition cameraPosition =new CameraPosition(target: latlngPosition,zoom: 14);
-  newGoogleMapController?.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+  GoogleMapController? _newGoogleMapController;
+  @override
+  void dispose(){
+    _newGoogleMapController?.dispose();
+    super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            height: MediaQuery.of(context).size.height,
-            width: double.infinity,
-            child: GoogleMap(
-              padding: EdgeInsets.only(bottom: bottomPaddingOfMap),
-              mapType:  MapType.normal,
+              GoogleMap(
               myLocationButtonEnabled: true,
               myLocationEnabled: true,
-              initialCameraPosition:
-              CameraPosition(
-                    target:LatLng(
-                        10,10
-                    ),
-                    zoom: 5),
+              initialCameraPosition: _initialCameraPosition,
               zoomGesturesEnabled: true,
               zoomControlsEnabled: true,
-
-              onMapCreated: (GoogleMapController controller){
-                _controllerGoogleMap.complete(controller);
-                newGoogleMapController =controller;
-                locatePosition();
-              setState(() {
-                bottomPaddingOfMap=200.0;
-              });
-              }
-
+              onMapCreated: (controller) => _newGoogleMapController=controller,
               ),
-            ),
+
             Positioned(top: 30,right: 20,left: 20,child: LocationSearchBox())
         ],
+
       )
 
     );

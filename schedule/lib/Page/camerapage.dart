@@ -2,19 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-//
-// class CameraPage extends StatelessWidget {
-//
-//   final List<CameraDescription> cameras;
-//   const CameraPage({Key? key, required this.cameras}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: CameraScreen(cameras: cameras,),
-//     );
-//   }
-// }
+
 
 class CameraPage extends StatefulWidget {
   @override
@@ -56,41 +44,49 @@ class CameraPageState extends State<CameraPage> {
                       ? Image.file(
                     _selectedFile!,
                     width: 400,
-                    height: 400,
+                    height: 500,
                     fit: BoxFit.cover,
                   )
                       : FlutterLogo(size: 400,),
-                  const SizedBox(height: 40),
-
-                      TextButton(
-                        style: TextButton.styleFrom(
-                          fixedSize: Size(100, 56),
-                          backgroundColor: Colors.white38,
-                          primary: Colors.amber,),
-                        onPressed: ()=> getImage(ImageSource.camera),
-                        child: Column(
-                          children: <Widget>[
-                            Text("Pick Camera"),
-                            Icon(Icons.camera_alt_rounded),
+                  const SizedBox(height: 70),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children:[
+                            TextButton(
+                            style: TextButton.styleFrom(
+                              fixedSize: Size(100, 56),
+                              backgroundColor: Colors.white54,
+                              primary: Colors.black,),
+                            onPressed: ()=> getImage(ImageSource.camera),
+                            child: Column(
+                              children: <Widget>[
+                                Text("Pick Camera"),
+                                Icon(Icons.camera_alt_rounded),
+                              ],
+                            ),
+                          ),
+                            SizedBox(
+                              width: 30,
+                            ),
+                            TextButton(
+                              style: TextButton.styleFrom(
+                                fixedSize: Size(100, 56),
+                                backgroundColor: Colors.white54,
+                                primary: Colors.black,),
+                              onPressed: ()=> getImage(ImageSource.gallery),
+                              child: Column(
+                                children: <Widget>[
+                                  Text("Pick Gallery"),
+                                  Icon(Icons.storage_rounded),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
-                      ),
                       const SizedBox(
                         height: 10,
                       ),
-                      TextButton(
-                        style: TextButton.styleFrom(
-                          fixedSize: Size(100, 56),
-                          backgroundColor: Colors.white38,
-                          primary: Colors.amber,),
-                        onPressed: ()=> getImage(ImageSource.gallery),
-                        child: Column(
-                          children: <Widget>[
-                            Text("Pick Gallery"),
-                            Icon(Icons.storage_rounded),
-                          ],
-                        ),
-                      ),
+
                 ],
               ),
         )

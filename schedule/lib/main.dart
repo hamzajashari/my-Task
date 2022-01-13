@@ -1,8 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'Screens/navbarscreen.dart';
-import 'Camera/camera_screen.dart';
-import 'Camera/gallery_screen.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized(); //Ensure plugin services are initialized

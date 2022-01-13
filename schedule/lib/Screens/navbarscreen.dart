@@ -2,8 +2,9 @@ import 'package:bottomnavbar/Page/camerapage.dart';
 import 'package:bottomnavbar/Page/mappage.dart';
 import 'package:bottomnavbar/Page/schedulepage.dart';
 import 'package:bottomnavbar/Page/profilepage.dart';
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+
+import '../Page/Map/map.dart';
 
 class navbarscreen extends StatefulWidget {
   const navbarscreen({Key? key}) : super(key: key);
@@ -36,7 +37,7 @@ class _navbarscreenState extends State<navbarscreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.map),
             label: "Map",
-            backgroundColor: Colors.red,
+            backgroundColor: Colors.redAccent,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.camera),

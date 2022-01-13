@@ -29,6 +29,8 @@ environment:
 dependencies:
   url_launcher: ^6.0.18
   image_picker: ^0.6.0+9
+  dio: ^4.0.0
+  flutter_polyline_points: ^1.0.0
   google_maps_flutter: ^2.1.1
   geolocator: ^8.0.3
   css_colors: ^1.1.1
