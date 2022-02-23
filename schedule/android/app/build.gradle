@@ -25,6 +25,7 @@ apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
+
     compileSdkVersion 31
 
     compileOptions {
@@ -35,7 +36,6 @@ android {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.bottomnavbar"
         minSdkVersion 21
-        //noinspection OldTargetApi
         targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -48,7 +48,16 @@ android {
         }
     }
 }
-
+dependencies {
+    constraints {
+        implementation('com.google.android.gms:play-services-location') {
+            version {
+                strictly "19.0.0"
+            }
+            because 'location: 3.2.4 does not specify version & google.bintray.com answers 502 Bad Gateway'
+        }
+    }
+}
 flutter {
     source '../..'
 }

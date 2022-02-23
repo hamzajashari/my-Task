@@ -1,10 +1,8 @@
+import 'package:bottomnavbar/Page/Map/map.dart';
 import 'package:bottomnavbar/Page/camerapage.dart';
-import 'package:bottomnavbar/Page/mappage.dart';
 import 'package:bottomnavbar/Page/schedulepage.dart';
 import 'package:bottomnavbar/Page/profilepage.dart';
 import 'package:flutter/material.dart';
-
-import '../Page/Map/map.dart';
 
 class navbarscreen extends StatefulWidget {
   const navbarscreen({Key? key}) : super(key: key);
@@ -17,14 +15,19 @@ class _navbarscreenState extends State<navbarscreen> {
   int currentIndex =0;
   final screens =[
     SchedulePage(),
-    Map(),
+    MapPage(),
     CameraPage(),
     ProfilePage(),
   ];
   @override
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: screens[currentIndex],
+      body: IndexedStack(
+        index: currentIndex,
+        children: screens,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
         onTap: (index)=>setState(() => currentIndex=index),
