@@ -1,5 +1,4 @@
-import 'dart:convert';
-
+import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -97,7 +96,7 @@ class _PrintProjectsState extends State<PrintProjects> {
                                         child: Text(
                                           lang[index],
                                           style: TextStyle(
-                                          color: Colors.black,
+                                          color: Colors.primaries[Random().nextInt(Colors.primaries.length)],
                                           ),
                                         ),
                                       ),

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:bottomnavbar/Camera/gallery_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gallery_saver/gallery_saver.dart';
@@ -24,6 +25,7 @@ class CameraPageState extends State<CameraPage> {
           firstButtonText = 'saving in progress...';
         });
         GallerySaver.saveImage(recoredImage.path);
+        print(recoredImage.path);
       }
     });
   }
