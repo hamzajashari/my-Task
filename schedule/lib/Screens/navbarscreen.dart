@@ -1,7 +1,8 @@
 import 'package:bottomnavbar/Page/Map/map.dart';
+import 'package:bottomnavbar/Page/Profile/Projects.dart';
 import 'package:bottomnavbar/Page/camerapage.dart';
 import 'package:bottomnavbar/Page/schedulepage.dart';
-import 'package:bottomnavbar/Page/profilepage.dart';
+import 'package:bottomnavbar/Page/Profile/profilepage.dart';
 import 'package:flutter/material.dart';
 
 class navbarscreen extends StatefulWidget {

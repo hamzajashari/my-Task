@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
-
 
 class CameraPage extends StatefulWidget {
   @override
@@ -12,20 +12,20 @@ class CameraPage extends StatefulWidget {
 class CameraPageState extends State<CameraPage> {
   File? _selectedFile;
   bool _inProcess = false;
+  String firstButtonText = 'Take photo';
 
   Future getImage(ImageSource source) async {
-    try {
-
-      final image = await ImagePicker.pickImage(source: source);
-      if (image == null) return;
-      final imageTemporary = File(image.path);
-      setState(() {
-        _selectedFile = imageTemporary;
-      });
-    }
-    on PlatformException catch(e){
-      print('Failed to pick image: $e');
-    }
+    ImagePicker.pickImage(source: source)
+        .then((File recoredImage) {
+      if (recoredImage != null && recoredImage.path != null) {
+        final imageTemporary = File(recoredImage.path);
+        setState(() {
+          _selectedFile = imageTemporary;
+          firstButtonText = 'saving in progress...';
+        });
+        GallerySaver.saveImage(recoredImage.path);
+      }
+    });
   }
 
 
@@ -48,7 +48,7 @@ class CameraPageState extends State<CameraPage> {
                     fit: BoxFit.cover,
                   )
                       : FlutterLogo(size: 400,),
-                  const SizedBox(height: 70),
+                  const SizedBox(height: 50),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children:[
@@ -86,7 +86,6 @@ class CameraPageState extends State<CameraPage> {
                       const SizedBox(
                         height: 10,
                       ),
-
                 ],
               ),
         )

@@ -1,10 +1,16 @@
 import'dart:io';
+import 'package:bottomnavbar/Page/Profile/Projects.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:html/parser.dart';
+import 'package:http/http.dart' as http;
+import 'package:html/dom.dart' as dom;
+
 
 const String _Github = 'https://github.com/hamzajashari';
 const String _Facebook = 'https://facebook.com/hamzajashari10';
@@ -36,7 +42,6 @@ class _ProfilePageState extends State<ProfilePage> {
             padding: EdgeInsets.zero,
             children: <Widget>[
               BuildTop(),
-
               BuildContent(),
             ],
           )
@@ -111,7 +116,7 @@ class _ProfilePageState extends State<ProfilePage> {
           const SizedBox(
             height: 30,
           ),
-          Contact(),
+          Repo(),
         ],
       );
 
@@ -215,43 +220,58 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       );
 
-  Widget Contact() =>
-      Material(
-        elevation: 7.0,
-        borderRadius: BorderRadius.all(const Radius.circular(10.0)),
-        child: InkWell(
-          child: Ink(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(colors: [Colors.purpleAccent, Colors.deepPurpleAccent]),
-              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-            ),
-            height: 48,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: const [
-                SizedBox(width: 48),
-                Expanded(
-                  child: Center(
-                    child: Text(
-                      "Contact",
-                    style: TextStyle(fontSize: 30,fontWeight: FontWeight.w300,color: Colors.white),),
+  Widget Repo() =>
+      GestureDetector(
+        onTap: (){
+          showModalBottomSheet(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10)),
+              ),
+              context: context,
+              builder: (context){
+                return  PrintProjects();
+              }
+          );
+        },
+        child: Material(
+          elevation: 7.0,
+          borderRadius: BorderRadius.all(const Radius.circular(10.0)),
+          child: InkWell(
+            child: Ink(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(colors: [Colors.purpleAccent, Colors.deepPurpleAccent]),
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              ),
+              height: 48,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: const [
+                  SizedBox(width: 48),
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        "View Projects",
+                      style: TextStyle(fontSize: 30,fontWeight: FontWeight.w300,color: Colors.white),),
+                    ),
                   ),
-                ),
-                SizedBox(
-                  width: 48.0,
-                  child: Icon(
-                    Icons.send,
-                    color: Colors.white,
-                    size: 23.0,
-                  ),
-                )
-              ],
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: 40.0,
+                      child: Icon(
+                        Icons.send,
+                        color: Colors.white,
+                        size: 23.0,
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
+
         ),
-
       );
-
   Future<void> _launchInBrowser(String url) async {
     if (!await launch(
       url,

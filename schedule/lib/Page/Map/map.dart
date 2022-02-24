@@ -90,7 +90,6 @@ class _MapPageState extends State<MapPage> {
             myLocationButtonEnabled: false,
             zoomControlsEnabled: false,
             initialCameraPosition: _initialCameraPosition,
-
             onMapCreated: (controller) => _googleMapController = controller,
             markers: {
               if (_origin != null) _origin!,
