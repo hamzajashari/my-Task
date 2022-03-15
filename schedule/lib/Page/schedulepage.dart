@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:css_colors/css_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,6 +12,14 @@ class SchedulePage extends StatefulWidget {
 }
 
 class _SchedulePageState extends State<SchedulePage> {
+  final Stream<QuerySnapshot> monday =
+      FirebaseFirestore.instance.collection('monday').snapshots();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -56,6 +66,33 @@ class _SchedulePageState extends State<SchedulePage> {
                                           fontWeight: FontWeight.w500,
                                           color: CSSColors.black)),
                                 ),
+                                Container(
+                                    height: 250,
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 20),
+                                    child: StreamBuilder<QuerySnapshot>(
+                                      stream: monday,
+                                      builder: (
+                                        BuildContext context,
+                                        AsyncSnapshot<QuerySnapshot> snapshot,
+                                      ) {
+                                        if (snapshot.hasError) {
+                                          return Text("Something went wrong.");
+                                        }
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return Text("Loading");
+                                        }
+                                        final data = snapshot.requireData;
+                                        return ListView.builder(
+                                          itemCount: data.size,
+                                          itemBuilder: (context, index) {
+                                            return Text(
+                                                'My Name is ${data.docs[index]['name']} and my description is ${data.docs[index]['description']} ');
+                                          },
+                                        );
+                                      },
+                                    ))
                               ],
                             ),
                             decoration: BoxDecoration(
@@ -66,8 +103,8 @@ class _SchedulePageState extends State<SchedulePage> {
                                   color: Colors.grey.withOpacity(0.5),
                                   spreadRadius: 3,
                                   blurRadius: 5,
-                                  offset:
-                                      Offset(-1, 0), // changes position of shadow
+                                  offset: Offset(
+                                      -1, 0), // changes position of shadow
                                 ),
                               ],
                             ),
@@ -98,8 +135,8 @@ class _SchedulePageState extends State<SchedulePage> {
                                   color: Colors.grey.withOpacity(0.5),
                                   spreadRadius: 3,
                                   blurRadius: 5,
-                                  offset:
-                                      Offset(-1, 0), // changes position of shadow
+                                  offset: Offset(
+                                      -1, 0), // changes position of shadow
                                 ),
                               ],
                             ),
@@ -130,8 +167,8 @@ class _SchedulePageState extends State<SchedulePage> {
                                   color: Colors.grey.withOpacity(0.5),
                                   spreadRadius: 3,
                                   blurRadius: 5,
-                                  offset:
-                                      Offset(-1, 0), // changes position of shadow
+                                  offset: Offset(
+                                      -1, 0), // changes position of shadow
                                 ),
                               ],
                             ),
@@ -162,8 +199,8 @@ class _SchedulePageState extends State<SchedulePage> {
                                   color: Colors.grey.withOpacity(0.5),
                                   spreadRadius: 3,
                                   blurRadius: 5,
-                                  offset:
-                                      Offset(-1, 0), // changes position of shadow
+                                  offset: Offset(
+                                      -1, 0), // changes position of shadow
                                 ),
                               ],
                             ),
@@ -194,8 +231,8 @@ class _SchedulePageState extends State<SchedulePage> {
                                   color: Colors.grey.withOpacity(0.5),
                                   spreadRadius: 3,
                                   blurRadius: 5,
-                                  offset:
-                                      Offset(-1, 0), // changes position of shadow
+                                  offset: Offset(
+                                      -1, 0), // changes position of shadow
                                 ),
                               ],
                             ),
@@ -226,8 +263,8 @@ class _SchedulePageState extends State<SchedulePage> {
                                   color: Colors.grey.withOpacity(0.5),
                                   spreadRadius: 3,
                                   blurRadius: 5,
-                                  offset:
-                                      Offset(-1, 0), // changes position of shadow
+                                  offset: Offset(
+                                      -1, 0), // changes position of shadow
                                 ),
                               ],
                             ),
@@ -258,8 +295,8 @@ class _SchedulePageState extends State<SchedulePage> {
                                   color: Colors.grey.withOpacity(0.5),
                                   spreadRadius: 3,
                                   blurRadius: 5,
-                                  offset:
-                                      Offset(-1, 0), // changes position of shadow
+                                  offset: Offset(
+                                      -1, 0), // changes position of shadow
                                 ),
                               ],
                             ),

@@ -1,7 +1,5 @@
 import 'dart:io';
-import 'package:bottomnavbar/Camera/gallery_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -17,16 +15,16 @@ class CameraPageState extends State<CameraPage> {
 
   Future getImage(ImageSource source) async {
     ImagePicker.pickImage(source: source)
-        .then((File recoredImage) {
-      if (recoredImage != null && recoredImage.path != null) {
-        final imageTemporary = File(recoredImage.path);
-        setState(() {
-          _selectedFile = imageTemporary;
-          firstButtonText = 'saving in progress...';
-        });
-        GallerySaver.saveImage(recoredImage.path);
-        print(recoredImage.path);
-      }
+        .then((File recordedImage) {
+      final imageTemporary = File(recordedImage.path);
+      setState(() {
+        _selectedFile = imageTemporary;
+        firstButtonText = 'saving in progress...';
+      });
+      
+      //save if image is captured from camera
+      if(source == ImageSource.camera)
+      GallerySaver.saveImage(recordedImage.path);
     });
   }
 

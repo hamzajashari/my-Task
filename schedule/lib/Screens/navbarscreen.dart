@@ -5,6 +5,8 @@ import 'package:bottomnavbar/Page/schedulepage.dart';
 import 'package:bottomnavbar/Page/Profile/profilepage.dart';
 import 'package:flutter/material.dart';
 
+import '../Page/DashboardScreen.dart';
+
 class navbarscreen extends StatefulWidget {
   const navbarscreen({Key? key}) : super(key: key);
 

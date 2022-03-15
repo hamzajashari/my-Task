@@ -24,8 +24,8 @@ class _PrintProjectsState extends State<PrintProjects> {
     final response = await http
         .get(Uri.parse('https://github.com/hamzajashari/'));
     dom.Document document = parse(response.body);
-    final content =document.getElementsByClassName('pinned-item-list-item-content Truncate-text');
-    final elements = document.getElementsByClassName('mr-2 text-bold ');
+    final content =document.getElementsByClassName('d-flex width-full position-relative');
+    final elements = document.getElementsByClassName('mr-1 text-bold  wb-break-word');
 
 
     setState(() {
