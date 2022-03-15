@@ -1,5 +1,6 @@
 import'dart:io';
 import 'package:bottomnavbar/Page/Profile/Projects.dart';
+import 'package:bottomnavbar/Shared%20Data/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,6 +35,12 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: false,
+        title: const Text('Profile'),
+        backgroundColor: primaryColor,
+        automaticallyImplyLeading: false,
+      ),
       body: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [Colors.white12,Colors.white10]),

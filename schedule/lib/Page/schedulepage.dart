@@ -1,17 +1,18 @@
+import 'package:bottomnavbar/Shared%20Data/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:css_colors/css_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SchedulePage extends StatefulWidget {
-  const SchedulePage({Key? key}) : super(key: key);
+class TaskPage extends StatefulWidget {
+  const TaskPage({Key? key}) : super(key: key);
 
   @override
-  _SchedulePageState createState() => _SchedulePageState();
+  _TaskPageState createState() => _TaskPageState();
 }
 
-class _SchedulePageState extends State<SchedulePage> {
+class _TaskPageState extends State<TaskPage> {
   final Stream<QuerySnapshot> monday =
       FirebaseFirestore.instance.collection('monday').snapshots();
 
@@ -22,8 +23,14 @@ class _SchedulePageState extends State<SchedulePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Stack(
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: false,
+        title: const Text('Task'),
+        backgroundColor: primaryColor,
+        automaticallyImplyLeading: false,
+      ),
+      body: Stack(
         children: <Widget>[
           Container(
             decoration: new BoxDecoration(

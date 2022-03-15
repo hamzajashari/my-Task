@@ -1,11 +1,9 @@
+import 'package:bottomnavbar/Model/Task.dart';
 import 'package:bottomnavbar/Page/Map/map.dart';
-import 'package:bottomnavbar/Page/Profile/Projects.dart';
 import 'package:bottomnavbar/Page/camerapage.dart';
 import 'package:bottomnavbar/Page/schedulepage.dart';
 import 'package:bottomnavbar/Page/Profile/profilepage.dart';
 import 'package:flutter/material.dart';
-
-import '../Page/DashboardScreen.dart';
 
 class navbarscreen extends StatefulWidget {
   const navbarscreen({Key? key}) : super(key: key);
@@ -17,7 +15,7 @@ class navbarscreen extends StatefulWidget {
 class _navbarscreenState extends State<navbarscreen> {
   int currentIndex =0;
   final screens =[
-    SchedulePage(),
+    TaskPage(),
     MapPage(),
     CameraPage(),
     ProfilePage(),
@@ -36,9 +34,9 @@ class _navbarscreenState extends State<navbarscreen> {
         onTap: (index)=>setState(() => currentIndex=index),
         items: const [
           BottomNavigationBarItem(
-              icon: Icon(Icons.schedule),
-              label: "Schedule",
-              backgroundColor: Colors.blue,
+            icon: Icon(Icons.task_alt_sharp),
+            label: "Task",
+            backgroundColor: Colors.blue,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.map),

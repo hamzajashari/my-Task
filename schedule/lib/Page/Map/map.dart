@@ -1,3 +1,4 @@
+import 'package:bottomnavbar/Shared%20Data/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:bottomnavbar/Page/Map/directions_model.dart';
 import 'package:bottomnavbar/Page/Map/directions_repository.dart';
@@ -45,7 +46,8 @@ class _MapPageState extends State<MapPage> {
       appBar: AppBar(
         centerTitle: false,
         title: const Text('Google Maps'),
-        backgroundColor: Colors.redAccent,
+        backgroundColor: primaryColor,
+        automaticallyImplyLeading: false,
         actions: [
           if (_origin != null)
             TextButton(
