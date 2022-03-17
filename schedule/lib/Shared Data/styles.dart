@@ -11,11 +11,22 @@ const logoStyle = TextStyle(
     color: Colors.black54,
     letterSpacing: 2);
 
+const appBarStyle = TextStyle(
+    fontFamily: 'Pacifico',
+    fontSize: 20,
+    color: Colors.white,
+    letterSpacing: 2);
+
 const logoWhiteStyle = TextStyle(
     fontFamily: 'Pacifico',
     fontSize: 21,
     letterSpacing: 2,
     color: Colors.white);
+const daysStyle = TextStyle(
+    fontFamily: 'Poppins',
+    fontSize: 30,
+    letterSpacing: 2,
+    color: primaryColor);
 const whiteText = TextStyle(color: Colors.white, fontFamily: 'Poppins');
 const disabledText = TextStyle(color: Colors.grey, fontFamily: 'Poppins');
 const contrastText = TextStyle(color: primaryColor, fontFamily: 'Poppins');
@@ -53,7 +64,7 @@ const priceText = TextStyle(
     fontWeight: FontWeight.w800,
     fontFamily: 'Poppins');
 
-const foodNameText = TextStyle(
+const TaskNameText = TextStyle(
     color: Colors.black,
     fontSize: 17,
     fontWeight: FontWeight.w600,

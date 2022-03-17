@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
 
-class Schedule {
-  Schedule._();
+class Task {
+  Task._();
 
-  static const _kFontFam = 'Schedule';
+  static const _kFontFam = 'Task';
 
   static const IconData music = const IconData(0xe800, fontFamily: _kFontFam);
   static const IconData search = const IconData(0xe801, fontFamily: _kFontFam);

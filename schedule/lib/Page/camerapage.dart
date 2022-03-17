@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../Shared Data/styles.dart';
+
 
 class CameraPage extends StatefulWidget {
   @override
@@ -34,10 +36,13 @@ class CameraPageState extends State<CameraPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          centerTitle: false,
-          title: const Text('Camera'),
+          title: const Text('Camera',style: appBarStyle),
+          toolbarHeight: 40,
           backgroundColor: primaryColor,
+          elevation: 0.0,
           automaticallyImplyLeading: false,
+          flexibleSpace: Container(),
+          centerTitle: true,
         ),
         body: Container(
           decoration: const BoxDecoration(

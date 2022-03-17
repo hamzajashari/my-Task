@@ -12,6 +12,8 @@ import 'package:html/parser.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
 
+import '../../Shared Data/styles.dart';
+
 
 const String _Github = 'https://github.com/hamzajashari';
 const String _Facebook = 'https://facebook.com/hamzajashari10';
@@ -36,10 +38,13 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: false,
-        title: const Text('Profile'),
+        title: const Text('Profile',style: appBarStyle),
+        toolbarHeight: 40,
         backgroundColor: primaryColor,
+        elevation: 0.0,
         automaticallyImplyLeading: false,
+        flexibleSpace: Container(),
+        centerTitle: true,
       ),
       body: Container(
           decoration: const BoxDecoration(

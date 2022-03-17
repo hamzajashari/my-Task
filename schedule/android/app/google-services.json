@@ -1,15 +1,16 @@
 {
   "project_info": {
     "project_number": "578231426304",
+    "firebase_url": "https://schedule-flutter-default-rtdb.firebaseio.com",
     "project_id": "schedule-flutter",
     "storage_bucket": "schedule-flutter.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:578231426304:android:ed3326ae86bc378bd527e5",
+        "mobilesdk_app_id": "1:578231426304:android:32a135d6d1f6d8ffd527e5",
         "android_client_info": {
-          "package_name": "com.example.schedule"
+          "package_name": "com.example.myTask"
         }
       },
       "oauth_client": [

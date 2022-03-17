@@ -1,4 +1,4 @@
-package com.example.schedule;
+package com.example.myTask;
 
 import io.flutter.embedding.android.FlutterActivity;
 

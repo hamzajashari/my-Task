@@ -3,7 +3,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:css_colors/css_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../Model/Task.dart';
+import '../Shared Data/styles.dart';
+import 'Firebase.dart';
+import 'Profile/Projects.dart';
 
 class TaskPage extends StatefulWidget {
   const TaskPage({Key? key}) : super(key: key);
@@ -13,8 +19,9 @@ class TaskPage extends StatefulWidget {
 }
 
 class _TaskPageState extends State<TaskPage> {
-  final Stream<QuerySnapshot> monday =
-      FirebaseFirestore.instance.collection('monday').snapshots();
+  List dataList = [];
+  final Stream<QuerySnapshot> task =
+      FirebaseFirestore.instance.collection('task').snapshots();
 
   @override
   void initState() {
@@ -24,300 +31,128 @@ class _TaskPageState extends State<TaskPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        title: const Text('Task'),
-        backgroundColor: primaryColor,
-        automaticallyImplyLeading: false,
-      ),
-      body: Stack(
-        children: <Widget>[
-          Container(
-            decoration: new BoxDecoration(
-                gradient: RadialGradient(
-              center: Alignment.bottomCenter,
-              colors: [
-                Colors.lightBlueAccent,
-                Colors.blueAccent,
-              ],
-              focal: Alignment.bottomCenter,
-            )),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 30.0),
-            child: Container(
-              margin: EdgeInsets.only(top: 5),
-              child: Center(
-                child: ListView.builder(
-                  itemCount: 1,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      height: 450,
-                      padding: const EdgeInsets.only(top: 25.0),
-                      child: PageView(
-                        scrollDirection: Axis.horizontal,
-                        children: <Widget>[
-                          Container(
-                            //Monday
-                            margin: EdgeInsets.only(left: 40, right: 40),
-                            alignment: Alignment.center,
-                            height: 1200,
-                            width: 300,
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text('Monday',
-                                      style: GoogleFonts.inter(
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.w500,
-                                          color: CSSColors.black)),
-                                ),
-                                Container(
-                                    height: 250,
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 20),
-                                    child: StreamBuilder<QuerySnapshot>(
-                                      stream: monday,
-                                      builder: (
-                                        BuildContext context,
-                                        AsyncSnapshot<QuerySnapshot> snapshot,
-                                      ) {
-                                        if (snapshot.hasError) {
-                                          return Text("Something went wrong.");
-                                        }
-                                        if (snapshot.connectionState ==
-                                            ConnectionState.waiting) {
-                                          return Text("Loading");
-                                        }
-                                        final data = snapshot.requireData;
-                                        return ListView.builder(
-                                          itemCount: data.size,
-                                          itemBuilder: (context, index) {
-                                            return Text(
-                                                'My Name is ${data.docs[index]['name']} and my description is ${data.docs[index]['description']} ');
-                                          },
-                                        );
-                                      },
-                                    ))
-                              ],
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(28),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 3,
-                                  blurRadius: 5,
-                                  offset: Offset(
-                                      -1, 0), // changes position of shadow
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            //Tuesday
-                            margin: EdgeInsets.only(left: 40, right: 40),
-                            alignment: Alignment.center,
-                            height: 450,
-                            width: 300,
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text('Tuesday',
-                                      style: GoogleFonts.inter(
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.w500,
-                                          color: CSSColors.black)),
-                                )
-                              ],
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(28),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 3,
-                                  blurRadius: 5,
-                                  offset: Offset(
-                                      -1, 0), // changes position of shadow
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            //Wednesday
-                            margin: EdgeInsets.only(left: 40, right: 40),
-                            alignment: Alignment.center,
-                            height: 450,
-                            width: 300,
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text('Wednesday',
-                                      style: GoogleFonts.inter(
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.w500,
-                                          color: CSSColors.black)),
-                                )
-                              ],
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(28),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 3,
-                                  blurRadius: 5,
-                                  offset: Offset(
-                                      -1, 0), // changes position of shadow
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            //Thursday
-                            margin: EdgeInsets.only(left: 40, right: 40),
-                            alignment: Alignment.center,
-                            height: 450,
-                            width: 300,
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text('Thursday',
-                                      style: GoogleFonts.inter(
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.w500,
-                                          color: CSSColors.black)),
-                                )
-                              ],
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(28),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 3,
-                                  blurRadius: 5,
-                                  offset: Offset(
-                                      -1, 0), // changes position of shadow
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            // Friday
-                            margin: EdgeInsets.only(left: 40, right: 40),
-                            alignment: Alignment.center,
-                            height: 450,
-                            width: 300,
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text('Friday',
-                                      style: GoogleFonts.inter(
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.w500,
-                                          color: CSSColors.black)),
-                                )
-                              ],
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(28),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 3,
-                                  blurRadius: 5,
-                                  offset: Offset(
-                                      -1, 0), // changes position of shadow
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            //Saturday
-                            margin: EdgeInsets.only(left: 40, right: 40),
-                            alignment: Alignment.center,
-                            height: 450,
-                            width: 300,
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text('Saturday',
-                                      style: GoogleFonts.inter(
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.w500,
-                                          color: CSSColors.black)),
-                                )
-                              ],
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(28),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 3,
-                                  blurRadius: 5,
-                                  offset: Offset(
-                                      -1, 0), // changes position of shadow
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            //Sunday
-                            margin: EdgeInsets.only(left: 40, right: 40),
-                            alignment: Alignment.center,
-                            height: 450,
-                            width: 300,
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text('Sunday',
-                                      style: GoogleFonts.inter(
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.w500,
-                                          color: CSSColors.black)),
-                                )
-                              ],
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(28),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 3,
-                                  blurRadius: 5,
-                                  offset: Offset(
-                                      -1, 0), // changes position of shadow
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+        appBar: AppBar(
+          title: const Text('Task', style: appBarStyle),
+          toolbarHeight: 40,
+          backgroundColor: primaryColor,
+          elevation: 0.0,
+          automaticallyImplyLeading: false,
+          flexibleSpace: Container(),
+          centerTitle: true,
+        ),
+        body:
+            // Container(
+            //   decoration: new BoxDecoration(
+            //       gradient: RadialGradient(
+            //     center: Alignment.bottomCenter,
+            //     colors: [
+            //       Colors.lightBlueAccent,
+            //       Colors.blueAccent,
+            //     ],
+            //     focal: Alignment.bottomCenter,
+            //   )),
+            // ),
+            // Container(
+            //              height: MediaQuery.of(context).size.height,
+            //              padding: const EdgeInsets.only(top: 10),
+            //              child: StreamBuilder<QuerySnapshot>(
+            //                stream: task,
+            //                builder: (
+            //                  BuildContext context,
+            //                  AsyncSnapshot<QuerySnapshot> snapshot,
+            //                ) {
+            //                  if (snapshot.hasError) {
+            //                    return Text("Something went wrong.");
+            //                  }
+            //                  if (snapshot.connectionState ==
+            //                      ConnectionState.waiting) {
+            //                    return Text("Loading");
+            //                  }
+            //                  final data = snapshot.requireData;
+            //                  return ListView.builder(
+            //                    itemCount: data.size,
+            //                    itemBuilder: (context, index) {
+            //                      return Padding(
+            //                        padding:
+            //                            const EdgeInsets.only(left: 20, bottom: 15),
+            //                        child: Text('${data.docs[index]['name']} \n',
+            //                            style: TaskNameText),
+            //                      );
+            //                    },
+            //                  );
+            //                },
+            //              ),
+            //      // decoration: BoxDecoration(
+            //      //   borderRadius: BorderRadius.circular(28),
+            //      //   color: Colors.white,
+            //      //   boxShadow: [
+            //      //     BoxShadow(
+            //      //       color: Colors.grey.withOpacity(0.5),
+            //      //       spreadRadius: 3,
+            //      //       blurRadius: 5,
+            //      //       offset: Offset(-1, 0), // changes position of shadow
+            //      //     ),
+            //      //   ],
+            //      // ),
+            //    ),
+            FutureBuilder(
+          future: FireStoreDataBase().getData(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return const Text(
+                "Something went wrong",
+              );
+            }
+            if (snapshot.connectionState == ConnectionState.done) {
+              dataList = snapshot.data as List;
+              return buildItems(dataList);
+            }
+            return const Center(child: CircularProgressIndicator());
+          },
+        ),
+        floatingActionButton: new FloatingActionButton(
+          elevation: 0.0,
+          child: new Icon(Icons.add),
+          backgroundColor: primaryColor,
+          onPressed: () {
+              showModalBottomSheet(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10)),
+                  ),
+                  context: context,
+                  builder: (context){
+                    return  PrintProjects();
+                  }
+              );
+          },
+        ));
   }
+
+  Widget buildItems(dataList) => ListView.separated(
+      padding: const EdgeInsets.all(8),
+      itemCount: dataList.length,
+      separatorBuilder: (BuildContext context, int index) => const Divider(),
+      itemBuilder: (BuildContext context, int index) {
+        return ListTile(
+          onTap: (){
+            showModalBottomSheet(
+                shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10)),
+            ),
+            context: context,
+            builder: (context){
+            return  PrintProjects();
+            }
+            );
+          },
+          leading: CircleAvatar(
+            radius: 15,
+            backgroundColor: highlightColor,
+          ),
+          title: Text(
+            dataList[index]["name"] ?? "Name not found",
+            style: TaskNameText,
+          ),
+        );
+      });
 }

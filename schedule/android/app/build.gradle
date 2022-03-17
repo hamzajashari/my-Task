@@ -34,7 +34,7 @@ android {
     }
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.schedule"
+        applicationId "com.example.myTask"
         minSdkVersion 21
         targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
@@ -51,6 +51,7 @@ android {
 dependencies {
     constraints {
         implementation 'com.google.firebase:firebase-analytics'
+        implementation 'com.google.android.libraries.places:places:2.5.0'
         implementation('com.google.android.gms:play-services-location') {
             version {
                 strictly "19.0.0"

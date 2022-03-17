@@ -1,4 +1,5 @@
 import 'package:bottomnavbar/Shared%20Data/colors.dart';
+import 'package:bottomnavbar/Shared%20Data/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:bottomnavbar/Page/Map/directions_model.dart';
 import 'package:bottomnavbar/Page/Map/directions_repository.dart';
@@ -45,9 +46,12 @@ class _MapPageState extends State<MapPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: const Text('Google Maps'),
+        title: const Text('Google Maps',style: appBarStyle),
+        toolbarHeight: 40,
         backgroundColor: primaryColor,
+        elevation: 0.0,
         automaticallyImplyLeading: false,
+        flexibleSpace: Container(),
         actions: [
           if (_origin != null)
             TextButton(
@@ -145,8 +149,8 @@ class _MapPageState extends State<MapPage> {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(top: 70.0),
         child: FloatingActionButton(
-          backgroundColor: Theme.of(context).primaryColor,
-          foregroundColor: Colors.black,
+          backgroundColor: primaryColor,
+          foregroundColor: Colors.white,
           onPressed: () => _googleMapController?.animateCamera(
             _info != null
                 ? CameraUpdate.newLatLngBounds(_info!.bounds, 100.0)
