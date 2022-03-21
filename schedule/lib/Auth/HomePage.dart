@@ -30,14 +30,14 @@ class _HomePageState extends State<HomePage> {
           Container(
             width: 200,
             margin: EdgeInsets.only(bottom: 0),
-            child: ScheduleFlatBtn('Sign In', (){
+            child: myTaskFlatBtn('Sign In', (){
               Navigator.push(context, MaterialPageRoute(builder: (context) => SignInPage()),);
             }),
           ),
           Container(
             width: 200,
             padding: EdgeInsets.all(0),
-            child: ScheduleOutlineBtn('Sign Up', (){
+            child: myTaskOutlineBtn('Sign Up', (){
               Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpPage()),);
               // Navigator.of(context).pushReplacementNamed('/signup');
              }),

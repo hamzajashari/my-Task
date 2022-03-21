@@ -1,8 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
-class FireStoreDataBase {
+class Database {
   List taskList = [];
+  FirebaseFirestore? firestore;
+  initiliase() {
+    firestore = FirebaseFirestore.instance;
+  }
   final CollectionReference collectionRef =
   FirebaseFirestore.instance.collection("task");
 
@@ -20,36 +24,54 @@ class FireStoreDataBase {
       return null;
     }
   }
-
-  Future<void> addTask() async {
-    await printDocID();
-    //creates a new doc with unique doc ID
-    return collectionRef
-        .add({
-      'name': "TestName",
-    })
-        .then((value) => debugPrint("User Added"))
-        .catchError((error) => debugPrint("Failed to add user: $error"));
+  Future<List> read() async {
+    QuerySnapshot querySnapshot;
+    List docs = [];
+    try {
+      querySnapshot =
+      (await firestore?.collection('countries').orderBy('timestamp').get())!;
+      if (querySnapshot.docs.isNotEmpty) {
+        for (var doc in querySnapshot.docs.toList()) {
+          Map a = {"id": doc.id, "name": doc['name'], "code": doc["code"]};
+          docs.add(a);
+        }
+        return docs;
+      }
+    } catch (e) {
+      print(e);
+    }
+    return docs;
   }
 
-  Future<void> addField() {
-    return collectionRef
-        .doc('MyDoc')
-    //will edit the doc if already available or will create a new doc with this given ID
-        .set(
-      {'role': "developer"},
-      SetOptions(merge: true),
-      // if set to 'false', then only these given fields will be added to that doc
-    )
-        .then((value) => debugPrint("User Added"))
-        .catchError((error) => debugPrint("Failed to add user: $error"));
+  Future<void> create(String name, String description,String date) async {
+    try {
+      await firestore?.collection("task").add({
+        'name': name,
+        'description': description,
+        'date': date,
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 
-  printDocID() async {
-    var querySnapshots = await collectionRef.get();
-    for (var snapshot in querySnapshots.docs) {
-      var documentID = snapshot.id;
-      debugPrint(documentID);
+  Future<void> delete(String id) async {
+    try {
+      await firestore?.collection("task").doc(id).delete();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+
+  Future<void> update(String id, String name, String code) async {
+    try {
+      await firestore
+          ?.collection("countries")
+          .doc(id)
+          .update({'name': name, 'code': code});
+    } catch (e) {
+      print(e);
     }
   }
 }

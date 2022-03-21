@@ -70,6 +70,18 @@ const TaskNameText = TextStyle(
     fontWeight: FontWeight.w600,
     fontFamily: 'Poppins');
 
+const TaskDescriptionText = TextStyle(
+    color: Colors.black26,
+    fontSize: 13,
+    fontWeight: FontWeight.w300,
+    fontFamily: 'Poppins');
+
+const TaskDateText = TextStyle(
+    color: Colors.black12,
+    fontSize: 11,
+    fontWeight: FontWeight.w500,
+    fontFamily: 'Poppins');
+
 const tabLinkStyle =
     TextStyle(fontWeight: FontWeight.w500);
 
