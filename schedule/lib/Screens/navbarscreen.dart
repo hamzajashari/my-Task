@@ -1,7 +1,6 @@
-import 'package:bottomnavbar/Model/Task.dart';
 import 'package:bottomnavbar/Page/Map/map.dart';
 import 'package:bottomnavbar/Page/camerapage.dart';
-import 'package:bottomnavbar/Page/myTask/myTaskpage.dart';
+import 'package:bottomnavbar/Page/myTask/Task.dart';
 import 'package:bottomnavbar/Page/Profile/profilepage.dart';
 import 'package:flutter/material.dart';
 
