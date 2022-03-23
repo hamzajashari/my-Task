@@ -17,6 +17,11 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController fullnameController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,10 +54,9 @@ class _SignUpPageState extends State<SignUpPage> {
               children: <Widget>[
                 Text('Welcome to myTask!', style: h3),
                 Text('Let\'s get started', style: taglineText),
-                scheduleTextInput('Username'),
-                scheduleTextInput('Full Name'),
-                scheduleEmailInput('Email Address'),
-                schedulePasswordInput('Password')
+                myTaskEmailInput('Email Address',emailController),
+                myTaskTextInput('Full Name',fullnameController),
+                myTaskPasswordInput('Password',passwordController)
               ],
             ),
             Positioned(

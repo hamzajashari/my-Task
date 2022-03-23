@@ -1,13 +1,14 @@
-  import 'package:bottomnavbar/Screens/navbarscreen.dart';
+import 'package:bottomnavbar/Screens/navbarscreen.dart';
 import 'package:bottomnavbar/Shared%20Data/colors.dart';
 import 'package:bottomnavbar/Shared%20Data/inputFields.dart';
 import 'package:bottomnavbar/Shared%20Data/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:page_transition/page_transition.dart';
+import 'Auth.dart';
 import 'SignUpPage.dart';
 
 class SignInPage extends StatefulWidget {
-
   SignInPage({Key? key}) : super(key: key);
 
   @override
@@ -15,6 +16,10 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,9 +32,7 @@ class _SignInPageState extends State<SignInPage> {
         actions: <Widget>[
           FlatButton(
             onPressed: () {
-              // Navigator.of(context).pushReplacementNamed('/signup');
               Navigator.pushReplacement(context, PageTransition(type: PageTransitionType.rightToLeft,  child: SignUpPage()));
-
             },
             child: Text('Sign Up', style: contrastText),
           )
@@ -48,8 +51,8 @@ class _SignInPageState extends State<SignInPage> {
               children: <Widget>[
                 Text('Welcome Back!', style: h3),
                 Text('Howdy, let\'s authenticate', style: taglineText),
-                scheduleTextInput('Username'),
-                schedulePasswordInput('Password'),
+                myTaskEmailInput('Email',emailController),
+                myTaskPasswordInput('Password',passwordController),
                 FlatButton(
                   onPressed: () {},
                   child: Text('Forgot Password?', style: contrastTextBold),
@@ -61,7 +64,10 @@ class _SignInPageState extends State<SignInPage> {
               right: -15,
               child: FlatButton(
                 onPressed: () {
-                    Navigator.pushReplacement(context, PageTransition(type: PageTransitionType.rightToLeft, child: navbarscreen()));
+                  context.read<AuthenticationService>().signIn(
+                    email: emailController.text.trim(),
+                    password: passwordController.text.trim(),
+                  );
                 },
                 color: primaryColor,
                 padding: EdgeInsets.all(13),
