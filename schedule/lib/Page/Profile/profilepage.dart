@@ -1,19 +1,16 @@
 import'dart:io';
-import 'package:bottomnavbar/Page/Profile/Projects.dart';
-import 'package:bottomnavbar/Shared%20Data/colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:myTask/Auth/HomePage.dart';
+import 'package:myTask/Shared%20Data/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:html/parser.dart';
-import 'package:http/http.dart' as http;
-import 'package:html/dom.dart' as dom;
 
 import '../../Shared Data/styles.dart';
-
+import 'Projects.dart';
 
 const String _Github = 'https://github.com/hamzajashari';
 const String _Facebook = 'https://facebook.com/hamzajashari10';
@@ -27,8 +24,12 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  _signOut() async {
+    await _firebaseAuth.signOut();
+  }
+
   File? _selectedFile;
-  String _phone = '070/123-456';
   final double coverHeight = 280;
   final profileHeight = 144;
 
@@ -45,6 +46,24 @@ class _ProfilePageState extends State<ProfilePage> {
         automaticallyImplyLeading: false,
         flexibleSpace: Container(),
         centerTitle: true,
+        actions: [
+            TextButton(
+              style: TextButton.styleFrom(
+                primary: Colors.green,
+                textStyle: const TextStyle(fontWeight: FontWeight.w600),
+              ),
+              onPressed: () async {
+                  await _signOut();
+                  if (_firebaseAuth.currentUser == null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePage()),
+                    );
+                  }
+                },
+              child: Icon(Icons.exit_to_app_rounded, color: white,),
+            ),
+        ],
       ),
       body: Container(
           decoration: const BoxDecoration(

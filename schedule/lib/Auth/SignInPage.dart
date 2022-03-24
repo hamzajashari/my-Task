@@ -1,11 +1,10 @@
-import 'package:bottomnavbar/Screens/navbarscreen.dart';
-import 'package:bottomnavbar/Shared%20Data/colors.dart';
-import 'package:bottomnavbar/Shared%20Data/inputFields.dart';
-import 'package:bottomnavbar/Shared%20Data/styles.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:myTask/Screens/navbarscreen.dart';
+import 'package:myTask/Shared%20Data/colors.dart';
+import 'package:myTask/Shared%20Data/inputFields.dart';
+import 'package:myTask/Shared%20Data/styles.dart';
 import 'package:page_transition/page_transition.dart';
-import 'Auth.dart';
 import 'SignUpPage.dart';
 
 class SignInPage extends StatefulWidget {
@@ -16,7 +15,7 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
-
+  final _auth = FirebaseAuth.instance;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -63,11 +62,23 @@ class _SignInPageState extends State<SignInPage> {
               bottom: 15,
               right: -15,
               child: FlatButton(
-                onPressed: () {
-                  context.read<AuthenticationService>().signIn(
-                    email: emailController.text.trim(),
-                    password: passwordController.text.trim(),
-                  );
+                onPressed: () async {
+                  try{
+                    await _auth.signInWithEmailAndPassword(
+                        email: emailController.text, password: passwordController.text);
+                    await Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (contex) => navbarscreen(),
+                        ));
+                  } catch (e){
+                    showDialog(
+                        context: context,
+                        builder: (ctx) => AlertDialog(
+                            title:
+                            Text(' Ops! Login Failed'),
+                            content: Text('${e}')));
+                  }
+
                 },
                 color: primaryColor,
                 padding: EdgeInsets.all(13),

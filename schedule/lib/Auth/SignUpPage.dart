@@ -1,10 +1,11 @@
-import 'package:bottomnavbar/Screens/navbarscreen.dart';
-import 'package:bottomnavbar/Shared%20Data/colors.dart';
-import 'package:bottomnavbar/Shared%20Data/inputFields.dart';
-import 'package:bottomnavbar/Shared%20Data/styles.dart';
-import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:myTask/Screens/navbarscreen.dart';
+import 'package:myTask/Shared%20Data/colors.dart';
+import 'package:myTask/Shared%20Data/inputFields.dart';
+import 'package:myTask/Shared%20Data/styles.dart';
+import 'package:page_transition/page_transition.dart';
 import 'SignInPage.dart';
 
 
@@ -17,7 +18,7 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-
+  final _auth = FirebaseAuth.instance;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController fullnameController = TextEditingController();
@@ -63,19 +64,35 @@ class _SignUpPageState extends State<SignUpPage> {
               bottom: 15,
               right: -15,
               child: FlatButton(
-                onPressed: () {
-                    Navigator.pushReplacement(context, PageTransition(type: PageTransitionType.rightToLeft, child: navbarscreen()));
+                onPressed: () async {
+                    try{
+                      await _auth.createUserWithEmailAndPassword(
+                          email: emailController.text, password: passwordController.text);
+                      await Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (contex) => navbarscreen(),
+                          ));
+                    } catch (e){
+                      showDialog(
+                          context: context,
+                          builder: (ctx) => AlertDialog(
+                          title:
+                          Text(' Ops! Registration Failed'),
+                      content: Text('${e}')));
+                    }
+
                 },
                 color: primaryColor,
                 padding: EdgeInsets.all(13),
                shape: CircleBorder(),
                 child: Icon(Icons.arrow_forward, color: white),
               ),
-            )
+            ),
+
           ],
         ),
         height: 360,
-        
+
         width: double.infinity,
         decoration: authPlateDecoration,
       ),

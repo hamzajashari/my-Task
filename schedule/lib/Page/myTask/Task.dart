@@ -1,13 +1,14 @@
-import 'package:bottomnavbar/Shared%20Data/buttons.dart';
-import 'package:bottomnavbar/Shared%20Data/colors.dart';
-import 'package:bottomnavbar/Shared%20Data/styles.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:myTask/Shared%20Data/buttons.dart';
+import 'package:myTask/Shared%20Data/colors.dart';
+import 'package:myTask/Shared%20Data/styles.dart';
 
 import '../Firebase.dart';
 
 class TaskPage extends StatefulWidget {
+
   const TaskPage({Key? key}) : super(key: key);
 
   @override
@@ -16,7 +17,6 @@ class TaskPage extends StatefulWidget {
 
 class _TaskPageState extends State<TaskPage> {
   List dataList = [];
-  DateTime? _dateTime;
   @override
   void initState() {
     super.initState();
@@ -79,7 +79,7 @@ class _TaskPageState extends State<TaskPage> {
                 context: context,
                 builder: (context){
                   return Container(
-                    height: 500,
+                    height: 300,
                     child: Card(
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -108,12 +108,11 @@ class _TaskPageState extends State<TaskPage> {
                                 child: Row(
                                     children: [
                                       myTaskFlatBtn('Update', () {
-
+                                        Navigator.of(context).pop();
                                       }),
                                       const SizedBox(width: 8),
-
-                                      myTaskDeleteBtn('Delete', () {
-
+                                      myTaskDeleteBtn('Delete', () async {
+                                        Navigator.of(context).pop();
                                       }),
                                       const SizedBox(width: 8),
                                     ],
@@ -121,6 +120,7 @@ class _TaskPageState extends State<TaskPage> {
                               ),
                             ],
                           ),
+
                         ],
                       ),
                     ),
@@ -226,7 +226,6 @@ class _TaskPageState extends State<TaskPage> {
                 });
                 Navigator.of(context).pop();
               }
-              buildItems(dataList);
             }
             ),
           ],

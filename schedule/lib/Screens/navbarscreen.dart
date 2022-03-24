@@ -1,15 +1,20 @@
-import 'package:bottomnavbar/Page/Map/map.dart';
-import 'package:bottomnavbar/Page/camerapage.dart';
-import 'package:bottomnavbar/Page/myTask/Task.dart';
-import 'package:bottomnavbar/Page/Profile/profilepage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:myTask/Auth/HomePage.dart';
+import 'package:myTask/Page/Map/map.dart';
+import 'package:myTask/Page/Profile/profilepage.dart';
+import 'package:myTask/Page/camerapage.dart';
+import 'package:myTask/Page/myTask/Task.dart';
 
 class navbarscreen extends StatefulWidget {
+
   const navbarscreen({Key? key}) : super(key: key);
 
   @override
   _navbarscreenState createState() => _navbarscreenState();
+
 }
+
 
 class _navbarscreenState extends State<navbarscreen> {
   int currentIndex =0;
@@ -19,8 +24,6 @@ class _navbarscreenState extends State<navbarscreen> {
     CameraPage(),
     ProfilePage(),
   ];
-  @override
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

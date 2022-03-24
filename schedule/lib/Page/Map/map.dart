@@ -1,9 +1,10 @@
-import 'package:bottomnavbar/Shared%20Data/colors.dart';
-import 'package:bottomnavbar/Shared%20Data/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:bottomnavbar/Page/Map/directions_model.dart';
-import 'package:bottomnavbar/Page/Map/directions_repository.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:myTask/Shared%20Data/colors.dart';
+import 'package:myTask/Shared%20Data/styles.dart';
+
+import 'directions_model.dart';
+import 'directions_repository.dart';
 
 class Map extends StatelessWidget {
   @override

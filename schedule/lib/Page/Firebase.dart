@@ -4,8 +4,7 @@ import 'package:flutter/cupertino.dart';
 class Database {
   List taskList = [];
 
-  final CollectionReference collectionRef =
-  FirebaseFirestore.instance.collection("task");
+  final CollectionReference collectionRef =  FirebaseFirestore.instance.collection("task");
 
   Future getData() async {
     try {
