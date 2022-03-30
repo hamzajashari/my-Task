@@ -1,6 +1,9 @@
+import 'dart:collection';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:myTask/Model/Task.dart';
 import 'package:myTask/Shared%20Data/buttons.dart';
 import 'package:myTask/Shared%20Data/colors.dart';
 import 'package:myTask/Shared%20Data/styles.dart';
@@ -16,7 +19,7 @@ class TaskPage extends StatefulWidget {
 }
 
 class _TaskPageState extends State<TaskPage> {
-  List dataList = [];
+  List<Task> data = [];
   @override
   void initState() {
     super.initState();
@@ -34,7 +37,7 @@ class _TaskPageState extends State<TaskPage> {
         centerTitle: true,
       ),
       body: FutureBuilder (
-        future: Database().getData(),
+        future: Firebase().getData(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Text(
@@ -42,8 +45,8 @@ class _TaskPageState extends State<TaskPage> {
             );
           }
           if (snapshot.connectionState == ConnectionState.done) {
-            dataList = snapshot.data as List;
-            return buildItems(dataList);
+            data = snapshot.data as List<Task>;
+            return buildItems(data);
           }
           return const Center(child: CircularProgressIndicator());
         },
@@ -65,12 +68,12 @@ class _TaskPageState extends State<TaskPage> {
             padding: const EdgeInsets.all(8.0),
             child: Card(
               child: ListTile(
-              leading: Icon(Icons.task),
-              title: Text(dataList[index]["name"] ?? "Name not found",
-                style: TaskNameText,),
+                leading: Icon(Icons.task),
+                title: Text(dataList.elementAt(index).name ?? "Name not found",
+                  style: TaskNameText,),
+              ),
             ),
           ),
-        ),
           onTap: (){
             showModalBottomSheet(
                 shape: RoundedRectangleBorder(
@@ -80,47 +83,43 @@ class _TaskPageState extends State<TaskPage> {
                 builder: (context){
                   return Container(
                     height: 300,
+                    width: MediaQuery.of(context).size.width,
                     child: Card(
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
                           ListTile(
                             leading: Icon(Icons.task),
-                            title: Text(dataList[index]["name"] ?? "Name not found",
+                            title: Text(dataList.elementAt(index).name ?? "Name not found",
                               style: TaskNameText,),
-
                           ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(left: 20.0,top: 20.0),
-                                child: Text(dataList[index]["description"] ?? "Description not found",
-                                  style: TaskDescriptionText,),
-                              ),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 20.0),
+                            child: Column(
+                                children: <Widget>[
+                                  Text(dataList.elementAt(index).description ?? "Description not found",
+                                      style: TaskDescriptionText,),
 
-                              Padding(
-                                padding: const EdgeInsets.only(top: 30.0,bottom: 25.0),
-                                child: Text(dataList[index]["date"] ?? "Date not found",
-                                  style: TaskDateText,),
+                                  Text(dataList.elementAt(index).date ?? "Date not found",
+                                      style: TaskDateText,),
+                                ],
                               ),
-                              Center(
-                                child: Row(
-                                    children: [
-                                      myTaskFlatBtn('Update', () {
-                                        Navigator.of(context).pop();
-                                      }),
-                                      const SizedBox(width: 8),
-                                      myTaskDeleteBtn('Delete', () async {
-                                        Navigator.of(context).pop();
-                                      }),
-                                      const SizedBox(width: 8),
-                                    ],
-                                  ),
-                              ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              myTaskFlatBtn('Update', () {
+                                Navigator.of(context).pop();
+                              }),
+                              const SizedBox(width: 8),
+                              myTaskDeleteBtn('Delete', () async {
+                                Firebase().delete(dataList.elementAt(index).id);
+                                dataList.remove(index);
+                                Navigator.of(context).pop();
+                              }),
+                              const SizedBox(width: 8),
                             ],
                           ),
-
                         ],
                       ),
                     ),
@@ -132,7 +131,7 @@ class _TaskPageState extends State<TaskPage> {
         );
       }
 
-      );
+  );
 
   modalCreate(BuildContext context) {
     var form = GlobalKey<FormState>();
@@ -180,34 +179,34 @@ class _TaskPageState extends State<TaskPage> {
                     controller: description,
                   ),
                   Text('Date'),
-                TextField(
-                  controller: date, //editing controller of this TextField
-                  decoration: InputDecoration(
-                      icon: Icon(Icons.calendar_today), //icon of text field
-                      labelText: "Enter Date" //label text of field
-                  ),
-                  readOnly: true,  //set it true, so that user will not able to edit text
-                  onTap: () async {
-                    DateTime? pickedDate = await showDatePicker(
-                        context: context, initialDate: DateTime.now(),
-                        firstDate: DateTime(2000), //DateTime.now() - not to allow to choose before today.
-                        lastDate: DateTime(2101)
-                    );
+                  TextField(
+                    controller: date, //editing controller of this TextField
+                    decoration: InputDecoration(
+                        icon: Icon(Icons.calendar_today), //icon of text field
+                        labelText: "Enter Date" //label text of field
+                    ),
+                    readOnly: true,  //set it true, so that user will not able to edit text
+                    onTap: () async {
+                      DateTime? pickedDate = await showDatePicker(
+                          context: context, initialDate: DateTime.now(),
+                          firstDate: DateTime(2000), //DateTime.now() - not to allow to choose before today.
+                          lastDate: DateTime(2101)
+                      );
 
-                    if(pickedDate != null ){
-                      print(pickedDate);  //pickedDate output format => 2021-03-10 00:00:00.000
-                      String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
-                      print(formattedDate); //formatted date output using intl package =>  2021-03-16
-                      //you can implement different kind of Date Format here according to your requirement
+                      if(pickedDate != null ){
+                        print(pickedDate);  //pickedDate output format => 2021-03-10 00:00:00.000
+                        String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+                        print(formattedDate); //formatted date output using intl package =>  2021-03-16
+                        //you can implement different kind of Date Format here according to your requirement
 
-                      setState(() {
-                        date.text = formattedDate; //set output date to TextField value.
-                      });
-                    }else{
-                      print("Date is not selected");
-                    }
-                  },
-                )
+                        setState(() {
+                          date.text = formattedDate; //set output date to TextField value.
+                        });
+                      }else{
+                        print("Date is not selected");
+                      }
+                    },
+                  )
                 ],
               ),
             ),
@@ -218,14 +217,10 @@ class _TaskPageState extends State<TaskPage> {
             }),
             myTaskFlatBtn('Create', () async {
               if (form.currentState!.validate()) {
-                await FirebaseFirestore.instance.collection('task').add({
-                  'name': name.text,
-                  'description': description.text,
-                  'date' : date.text,
-                  'created_date': Timestamp.now(),
-                });
+                Firebase().create(name.text, description.text,date.text);
                 Navigator.of(context).pop();
               }
+
             }
             ),
           ],
