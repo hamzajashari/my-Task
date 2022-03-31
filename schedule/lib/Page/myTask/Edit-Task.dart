@@ -3,6 +3,7 @@ import 'package:myTask/Shared%20Data/colors.dart';
 import 'package:myTask/Shared%20Data/styles.dart';
 
 class editTask extends StatefulWidget {
+
   const editTask({Key? key}) : super(key: key);
 
   @override
@@ -15,6 +16,12 @@ class _editTaskState extends State<editTask> {
     return Scaffold(
         appBar: AppBar(
         title: const Text('Update Task', style: appBarStyle),
+          leading: GestureDetector(
+            child: Icon( Icons.arrow_back_ios, color: Colors.white,),
+            onTap: () {
+              Navigator.pop(context);
+            } ,
+          ) ,
     toolbarHeight: 40,
     backgroundColor: primaryColor,
     elevation: 0.0,

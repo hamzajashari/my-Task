@@ -9,6 +9,7 @@ import 'package:myTask/Shared%20Data/colors.dart';
 import 'package:myTask/Shared%20Data/styles.dart';
 
 import '../Firebase.dart';
+import 'Edit-Task.dart';
 
 class TaskPage extends StatefulWidget {
 
@@ -63,74 +64,93 @@ class _TaskPageState extends State<TaskPage> {
       padding: const EdgeInsets.all(8),
       itemCount: dataList.length,
       itemBuilder: (BuildContext context, int index) {
-        return new GestureDetector(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Card(
-              child: ListTile(
-                leading: Icon(Icons.task),
-                title: Text(dataList.elementAt(index).name ?? "Name not found",
-                  style: TaskNameText,),
-              ),
-            ),
-          ),
-          onTap: (){
-            showModalBottomSheet(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10)),
-                ),
-                context: context,
-                builder: (context){
-                  return Container(
-                    height: 300,
-                    width: MediaQuery.of(context).size.width,
-                    child: Card(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          ListTile(
-                            leading: Icon(Icons.task),
-                            title: Text(dataList.elementAt(index).name ?? "Name not found",
-                              style: TaskNameText,),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 20.0),
-                            child: Column(
-                                children: <Widget>[
-                                  Text(dataList.elementAt(index).description ?? "Description not found",
-                                      style: TaskDescriptionText,),
-
-                                  Text(dataList.elementAt(index).date ?? "Date not found",
-                                      style: TaskDateText,),
-                                ],
-                              ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              myTaskFlatBtn('Update', () {
-                                Navigator.of(context).pop();
-                              }),
-                              const SizedBox(width: 8),
-                              myTaskDeleteBtn('Delete', () async {
-                                Firebase().delete(dataList.elementAt(index).id);
-                                dataList.remove(index);
-                                Navigator.of(context).pop();
-                              }),
-                              const SizedBox(width: 8),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                }
-            );
+        return Dismissible(
+          key: UniqueKey(),
+          direction: DismissDirection.endToStart,
+          onDismissed: (_) {
+            setState(() {
+              dataList.removeAt(index);
+            });
           },
+          child: GestureDetector(
+            child: Card(
+                child: ListTile(
+                  leading: Icon(Icons.task),
+                  title: Text(dataList.elementAt(index).name ?? "Name not found",
+                    style: TaskNameText,),
+                    trailing: Wrap(
+                    spacing: 12,
+                    children: <Widget>[
+                      Text(dataList.elementAt(index).date ?? "Date not found",
+                        style: TaskDateText,),
+                    ],
+                  ),
+                ),
+              ),
+            onTap: (){
+              showModalBottomSheet(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10)),
+                  ),
+                  context: context,
+                  builder: (context){
+                    return Container(
+                      height: 300,
+                      width: MediaQuery.of(context).size.width,
+                      child: Card(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            ListTile(
+                              leading: Icon(Icons.task),
+                              title: Text(dataList.elementAt(index).name ?? "Name not found",
+                                style: TaskNameText,),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 50.0),
+                              child: Center(
+                                child: Column(
+                                  children: <Widget>[
+                                    SingleChildScrollView(
+                                      scrollDirection: Axis.vertical,
+                                      child: Text(dataList.elementAt(index).description ?? "Description not found",
+                                        style: TaskDescriptionText,),
+                                    ),
 
+                                    Text(dataList.elementAt(index).date ?? "Date not found",
+                                      style: TaskDateText,),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                myTaskFlatBtn('Update', () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => const editTask()),
+                                  );
+                                }),
+                                const SizedBox(width: 8),
+                                myTaskDeleteBtn('Delete', () async {
+                                  Firebase().delete(dataList.elementAt(index).id);
+                                  dataList.remove(index);
+                                  Navigator.of(context).pop();
+                                }),
+                                const SizedBox(width: 8),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }
+              );
+            },
+          ),
         );
       }
-
   );
 
   modalCreate(BuildContext context) {
@@ -220,7 +240,6 @@ class _TaskPageState extends State<TaskPage> {
                 Firebase().create(name.text, description.text,date.text);
                 Navigator.of(context).pop();
               }
-
             }
             ),
           ],
