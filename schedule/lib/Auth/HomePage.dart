@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:myTask/Shared%20Data/buttons.dart';
 import 'package:myTask/Shared%20Data/colors.dart';
 import 'package:myTask/Shared%20Data/styles.dart';
-import 'package:page_transition/page_transition.dart';
 import 'SignUpPage.dart';
 import 'SignInPage.dart';
 

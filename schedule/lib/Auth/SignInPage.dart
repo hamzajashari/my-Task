@@ -66,7 +66,7 @@ class _SignInPageState extends State<SignInPage> {
                   try{
                     await _auth.signInWithEmailAndPassword(
                         email: emailController.text, password: passwordController.text);
-                    await Navigator.of(context).push(
+                    Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (contex) => navbarscreen(),
                         ));

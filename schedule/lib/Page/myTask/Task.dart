@@ -4,7 +4,9 @@ import 'package:myTask/Model/Task.dart';
 import 'package:myTask/Shared%20Data/buttons.dart';
 import 'package:myTask/Shared%20Data/colors.dart';
 import 'package:myTask/Shared%20Data/styles.dart';
+import 'package:page_transition/page_transition.dart';
 
+import '../../Screens/navbarscreen.dart';
 import '../Firebase.dart';
 import 'Edit-Task.dart';
 
@@ -120,7 +122,7 @@ class _TaskPageState extends State<TaskPage> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(builder: (
-                                            context) => const editTask(taskId: taskId)),
+                                            context) => editTask(taskId: taskId)),
                                       );
                                     },
                                     ),
@@ -244,13 +246,22 @@ class _TaskPageState extends State<TaskPage> {
             myTaskFlatBtn('Create', () async {
               if (form.currentState!.validate()) {
                 Firebase().create(name.text, description.text,date.text);
-                Navigator.of(context).pop();
+                redirect();
               }
             }
             ),
           ],
         );
       },
+    );
+  }
+  redirect(){
+    Navigator.push(
+      context,
+      PageTransition(
+        type: PageTransitionType.bottomToTop,
+        child: navbarscreen(),
+      ),
     );
   }
 }

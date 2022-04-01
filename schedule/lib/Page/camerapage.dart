@@ -57,7 +57,7 @@ class CameraPageState extends State<CameraPage> {
                     image: Image.file(
                         _selectedFile!,
                         width: 400,
-                        height: 495,
+                        height: 480,
                         fit: BoxFit.cover,
                     ),
                     blurRadius: 5,

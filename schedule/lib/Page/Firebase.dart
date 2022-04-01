@@ -33,7 +33,19 @@ class Firebase {
       print(e);
     }
   }
-  void update(String id,String name,String description,String date) async {
+  void update(Task task) async {
+    try {
+      FirebaseFirestore.instance.collection('task').doc(task.id).update({
+        'name': task.name,
+        'description': task.description,
+        'date' : task.date,
+        'created_date': Timestamp.now(),
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+  void update1(String id,String name,String description,String date) async {
     try {
       FirebaseFirestore.instance.collection('task').doc(id).update({
         'name': name,
@@ -51,5 +63,17 @@ class Firebase {
     } catch (e) {
       print(e);
     }
+  }
+
+
+  Future<Task> getTaskById(String taskId) async {
+    Task task= new Task("","","","");
+    var collection = FirebaseFirestore.instance.collection('task');
+    var docSnapshot = await collection.doc(taskId).get();
+    if (docSnapshot.exists) {
+      task=new Task(taskId,docSnapshot.get('name'),docSnapshot.get("description"),docSnapshot.get("date"));
+      // Call setState if needed.
+    }
+    return task;
   }
 }

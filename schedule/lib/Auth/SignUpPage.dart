@@ -68,7 +68,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     try{
                       await _auth.createUserWithEmailAndPassword(
                           email: emailController.text, password: passwordController.text);
-                      await Navigator.of(context).push(
+                      Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (contex) => navbarscreen(),
                           ));
