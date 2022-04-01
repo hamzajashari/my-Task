@@ -65,7 +65,7 @@ const priceText = TextStyle(
     fontFamily: 'Poppins');
 
 const TaskNameText = TextStyle(
-    color: Colors.black,
+    color: primaryColor,
     fontSize: 17,
     fontWeight: FontWeight.w600,
     fontFamily: 'Poppins');

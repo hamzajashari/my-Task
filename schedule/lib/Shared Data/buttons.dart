@@ -10,6 +10,14 @@ FlatButton myTaskFlatBtn(String text, onPressed) {
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
   );
 }
+FlatButton updateBtn(onPressed) {
+  return FlatButton(
+    onPressed: onPressed,
+    child: Icon(Icons.update,color: primaryColor,),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+  );
+}
+
 
 OutlineButton myTaskOutlineBtn(String text, onPressed) {
   return OutlineButton(

@@ -1,6 +1,3 @@
-import 'dart:collection';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:myTask/Model/Task.dart';
@@ -67,15 +64,25 @@ class _TaskPageState extends State<TaskPage> {
         return Dismissible(
           key: UniqueKey(),
           direction: DismissDirection.endToStart,
+          background: Container(
+          alignment: AlignmentDirectional.centerEnd,
+          color: Colors.red,
+          child: Padding(
+          padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+          child: Icon(Icons.delete,
+          color: Colors.black,),
+          ),
+          ),
           onDismissed: (_) {
             setState(() {
+              Firebase().delete(dataList.elementAt(index).id);
               dataList.removeAt(index);
             });
           },
           child: GestureDetector(
             child: Card(
                 child: ListTile(
-                  leading: Icon(Icons.task),
+                  leading: Icon(Icons.task,color: primaryColor,),
                   title: Text(dataList.elementAt(index).name ?? "Name not found",
                     style: TaskNameText,),
                     trailing: Wrap(
@@ -95,19 +102,33 @@ class _TaskPageState extends State<TaskPage> {
                   context: context,
                   builder: (context){
                     return Container(
-                      height: 300,
+                      height: MediaQuery.of(context).size.height/2,
                       width: MediaQuery.of(context).size.width,
                       child: Card(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
                             ListTile(
-                              leading: Icon(Icons.task),
+                              leading: Icon(Icons.task,color: primaryColor,),
                               title: Text(dataList.elementAt(index).name ?? "Name not found",
                                 style: TaskNameText,),
+                              trailing: Wrap(
+                                spacing: 12,
+                                children: <Widget>[
+                                    updateBtn(() {
+                                      String taskId= dataList.elementAt(index).id;
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (
+                                            context) => const editTask(taskId: taskId)),
+                                      );
+                                    },
+                                    ),
+                                ],
+                              ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(bottom: 50.0),
+                              padding: const EdgeInsets.only(bottom: 50.0,left: 30,right: 30,top: 20),
                               child: Center(
                                 child: Column(
                                   children: <Widget>[
@@ -116,31 +137,16 @@ class _TaskPageState extends State<TaskPage> {
                                       child: Text(dataList.elementAt(index).description ?? "Description not found",
                                         style: TaskDescriptionText,),
                                     ),
-
-                                    Text(dataList.elementAt(index).date ?? "Date not found",
-                                      style: TaskDateText,),
                                   ],
                                 ),
                               ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                myTaskFlatBtn('Update', () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => const editTask()),
-                                  );
-                                }),
-                                const SizedBox(width: 8),
-                                myTaskDeleteBtn('Delete', () async {
-                                  Firebase().delete(dataList.elementAt(index).id);
-                                  dataList.remove(index);
-                                  Navigator.of(context).pop();
-                                }),
-                                const SizedBox(width: 8),
-                              ],
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(dataList.elementAt(index).date ?? "Date not found",
+                                    style: TaskDateText,),
                             ),
+
                           ],
                         ),
                       ),
