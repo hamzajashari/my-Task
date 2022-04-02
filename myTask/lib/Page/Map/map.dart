@@ -6,20 +6,6 @@ import 'package:myTask/Shared%20Data/styles.dart';
 import 'directions_model.dart';
 import 'directions_repository.dart';
 
-class Map extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Google Maps',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primaryColor: Colors.white,
-      ),
-      home: MapPage(),
-    );
-  }
-}
-
 class MapPage extends StatefulWidget {
   @override
   _MapPageState createState() => _MapPageState();

@@ -7,6 +7,7 @@ class Task {
   String _description;
   String _date;
   Task(this._id, this._name, this._description, this._date);
+
   String get id => _id;
 
   set id(String value) {

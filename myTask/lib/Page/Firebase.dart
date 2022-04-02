@@ -45,18 +45,6 @@ class Firebase {
       print(e);
     }
   }
-  void update1(String id,String name,String description,String date) async {
-    try {
-      FirebaseFirestore.instance.collection('task').doc(id).update({
-        'name': name,
-        'description': description,
-        'date' : date,
-        'created_date': Timestamp.now(),
-      });
-    } catch (e) {
-      print(e);
-    }
-  }
   void delete(String id) async {
     try {
       FirebaseFirestore.instance.collection('task').doc(id).delete();

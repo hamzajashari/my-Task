@@ -63,7 +63,7 @@ class _TaskPageState extends State<TaskPage> {
       padding: const EdgeInsets.all(8),
       itemCount: dataList.length,
       itemBuilder: (BuildContext context, int index) {
-        return Dismissible(
+          return Dismissible(
           key: UniqueKey(),
           direction: DismissDirection.endToStart,
           background: Container(
@@ -246,7 +246,13 @@ class _TaskPageState extends State<TaskPage> {
             myTaskFlatBtn('Create', () async {
               if (form.currentState!.validate()) {
                 Firebase().create(name.text, description.text,date.text);
-                redirect();
+                Navigator.push(
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.bottomToTop,
+                    child: navbarscreen(),
+                  ),
+                );
               }
             }
             ),
@@ -255,13 +261,6 @@ class _TaskPageState extends State<TaskPage> {
       },
     );
   }
-  redirect(){
-    Navigator.push(
-      context,
-      PageTransition(
-        type: PageTransitionType.bottomToTop,
-        child: navbarscreen(),
-      ),
-    );
-  }
+
+
 }
