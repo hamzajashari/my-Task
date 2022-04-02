@@ -1,13 +1,15 @@
-<img src="https://i.ibb.co/GR7S1jc/firebaseflutter.png" style="zoom: 15%;" />
+<p align="center">
+    <img src="https://i.ibb.co/GR7S1jc/firebaseflutter.png" width=400/>
+</p>
 
 Mobile application using Flutter framework for all CRUD operations is used Firebase database.
 
 
 
 ## Home Page 
-
-<img src="https://i.ibb.co/Dwgp3PB/Screenshot-1648837165.png" alt="Home Page" style="zoom: 25%;" />
-
+<p align="center">
+<img src="https://i.ibb.co/Dwgp3PB/Screenshot-1648837165.png" alt="Home Page" width=300/>
+</p>
 Во овој Home widget има вкупно две копче, сите се поставени внатре во посебен Container со точно 200 должина, при клик на копче постоји функција кај што редиректира во содветен widget.
 
 ```dart
@@ -24,9 +26,9 @@ Container(
    }),
 ```
 
-| <img src="https://i.ibb.co/WByk8T0/Screenshot-1648837168.png" alt="Sign In" style="zoom: 25%;" /> | <img src="https://i.ibb.co/gZYpStj/Screenshot-1648837170.png" alt="Sign Up" style="zoom: 25%;" /> |
-| :----------------------------------------------------------: | :----------------------------------------------------------: |
-
+<p align="center">
+  <img src="https://i.ibb.co/WByk8T0/Screenshot-1648837168.png" alt="Sign In" width=300/>.......<img src="https://i.ibb.co/gZYpStj/Screenshot-1648837170.png" alt="Sign Up" width=300/> 
+</p>
 ```dart
 final _auth = FirebaseAuth.instance; 
 ```
@@ -59,9 +61,9 @@ try{
 ```
 
 ## Task 
-
-<img src="https://i.ibb.co/Qffb5B5/Screenshot-1648837096.png" alt="Task" style="zoom: 25%;" />
-
+<p align="center">
+<img src="https://i.ibb.co/Qffb5B5/Screenshot-1648837096.png" alt="Task" width=300 />
+</p>
 Секој таск е инстанца од класата Task по доле може да ги гледате сите атрибути:
 
 ```dart
@@ -95,9 +97,9 @@ FutureBuilder (
 ```
 
 ## Create Task
-
-<img src="https://i.ibb.co/cN3nJtr/Screenshot-1648837153.png" style="zoom: 25%;" />
-
+<p align="center">
+<img src="https://i.ibb.co/cN3nJtr/Screenshot-1648837153.png" width="300"/>
+</p>
 Кога се креира нов таск прво сите полиња се задожителни потоа при плик на копчето **Create** се креира нов и се печати во листата на таскови. Со помош на фунцијата **create()** и праќање на потребните атрибути за нов таск тој се креира.
 
 *Како тоа копче функционира е прикажен подоле.*
@@ -120,9 +122,9 @@ myTaskFlatBtn('Create', () async {
 
 
 ## Update Task
-
-<img src="https://i.ibb.co/YcVH5Gt/Screenshot-1648837160.png" style="zoom: 25%;" />
-
+<p align="center">
+<img src="https://i.ibb.co/YcVH5Gt/Screenshot-1648837160.png" width="300"/>
+</p>
 За да може еден таск да се update-ира треба да го имаме неговиот id, тоа го направиме при селекција на таскот и кликање на копчето update, после тоа се повика функција getTaskById(task.id) и доколку све успешно е најдено таскот се враќа во овој widget. За секој поле е поставено како labelText претходната состојба на тој таск. Корисникот има можност сите полиња да ги промени и да кликне **Update**. Ова копче функционира вака: 
 
 ```dart
@@ -163,9 +165,9 @@ onDismissed: (_) {
 ```
 
 ## Google Map
-
-<img src="https://i.ibb.co/8Xq832Z/Screenshot-1648837137.png" alt="Google Map" style="zoom: 25%;" />
-
+<p align="center">
+<img src="https://i.ibb.co/8Xq832Z/Screenshot-1648837137.png" alt="Google Map" width="300"/>
+</p>
 Со помош на дополнителни библиотеки за Maps и API key од Google овој widget е во можност да се користи, како функција за LongPress можеме да додаваме Origin и Destination, oткако се креира маркерот за дестинација треба да се прикажи нај кратката патека меѓу тие две маркери *(во моментов не функционир но кодот е напишан)*
 
 ```dart
@@ -198,9 +200,9 @@ GoogleMap(
 
 
 ## Camera 
-
-<img src="https://i.ibb.co/V2DQDDk/Screenshot-1648837140.png" alt="Camera Page" style="zoom: 25%;" />
-
+<p align="center">
+<img src="https://i.ibb.co/V2DQDDk/Screenshot-1648837140.png" alt="Camera Page" width="300"/>
+</p>
 Ова функција е главната за да овозможи да се прикаже сликата во екран, исто така доколку аргументот што го прима ова функција е ImageSource.camera тогаш таа слика се чува фо уредот кој што се корисити, односно во Pictures фолдерот. 
 
 ```dart
@@ -220,9 +222,9 @@ Future getImage(ImageSource source) async {
 ```
 
 ## Profile
-
-<img src="https://i.ibb.co/vj0YTKf/Screenshot-1648837144.png" alt="Profile Page" style="zoom: 25%;" />
-
+<p align="center">
+<img src="https://i.ibb.co/vj0YTKf/Screenshot-1648837144.png" alt="Profile Page" width="300"/>
+</p>
 Чисто информативно widget нема некоја функција освен при клик не некој од копчето за социални мрежи се редиректира во содветен линк. Исто така десно горе има копче за Log Out на корисникот и тоа функционира вака:
 
 ```dart
