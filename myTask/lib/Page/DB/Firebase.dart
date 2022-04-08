@@ -67,7 +67,7 @@ class Firebase {
 
   Future<Task> getTaskById(String taskId) async {
     Task task= new Task("","","","");
-    var docSnapshot =await FirebaseFirestore.instance.collection("user").doc(taskId).get();
+    var docSnapshot =await FirebaseFirestore.instance.collection("task").doc(taskId).get();
     if (docSnapshot.exists) {
       task=new Task(taskId,docSnapshot.get('name'),docSnapshot.get("description"),docSnapshot.get("date"));
       // Call setState if needed.
