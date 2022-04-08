@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:myTask/Auth/HomePage.dart';
 import 'package:myTask/Shared%20Data/colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -25,8 +26,12 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
+
   _signOut() async {
     await _firebaseAuth.signOut();
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove("user");
   }
 
   File? _selectedFile;
@@ -120,6 +125,7 @@ class _ProfilePageState extends State<ProfilePage> {
         top: 110,
         left: 110,
         child: FloatingActionButton(
+          heroTag: "Add Profile",
           onPressed: () {
             print("Add new Profile Picture //TODO");
           },

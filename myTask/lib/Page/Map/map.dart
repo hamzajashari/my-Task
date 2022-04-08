@@ -136,6 +136,7 @@ class _MapPageState extends State<MapPage> {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(top: 70.0),
         child: FloatingActionButton(
+          heroTag: "Initial Location",
           backgroundColor: primaryColor,
           foregroundColor: Colors.white,
           onPressed: () => _googleMapController?.animateCamera(

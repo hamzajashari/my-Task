@@ -1,14 +1,12 @@
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:myTask/Screens/navbarscreen.dart';
 import 'package:myTask/Shared%20Data/colors.dart';
 import 'package:myTask/Shared%20Data/styles.dart';
-import 'package:page_transition/page_transition.dart';
-
 import '../../Model/Task.dart';
 import '../../Shared Data/buttons.dart';
 import '../../Shared Data/inputFields.dart';
-import '../Firebase.dart';
+import '../DB/Firebase.dart';
 class editTask extends StatefulWidget {
   final String taskId;
   const editTask({Key? key, required this.taskId,}) : super(key: key);
@@ -19,6 +17,8 @@ class editTask extends StatefulWidget {
 
 class _editTaskState extends State<editTask> {
   Task task=new Task("","","","");
+
+
   Future<void> init() async {
     task=await Firebase().getTaskById(widget.taskId);
   }
@@ -76,38 +76,17 @@ class _editTaskState extends State<editTask> {
                     padding: const EdgeInsets.only(bottom: 10.0,top: 5),
                     child: myTaskTextInput(task.description,description),
                   ),
-                  Text('Date',style: h6,),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5),
-                    child: TextField(
-                      controller: date, //editing controller of this TextField
-                      decoration: InputDecoration(
-                          icon: Icon(Icons.calendar_today), //icon of text field
-                          labelText: "Enter Date"
-                        //label text of field
-                      ),
-                      readOnly: true,  //set it true, so that user will not able to edit text
-                      onTap: () async {
-                        DateTime? pickedDate = await showDatePicker(
-                            context: context, initialDate: DateTime.now(),
-                            firstDate: DateTime(2000), //DateTime.now() - not to allow to choose before today.
-                            lastDate: DateTime(2101)
-                        );
-
-                        if(pickedDate != null ){
-                          print(pickedDate);  //pickedDate output format => 2021-03-10 00:00:00.000
-                          String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
-                          print(formattedDate); //formatted date output using intl package =>  2021-03-16
-                          //you can implement different kind of Date Format here according to your requirement
-
-                          setState(() {
-                            date.text = formattedDate; //set output date to TextField value.
-                          });
-                        }else{
-                          print("Date is not selected");
-                        }
-                      },
-                    ),
+                  DateTimePicker(
+                    type: DateTimePickerType.dateTimeSeparate,
+                    dateMask: 'd MMM, yyyy',
+                    controller: date,
+                    // initialValue: DateTime.now().toString(),
+                    firstDate: DateTime(2000),
+                    lastDate: DateTime(2100),
+                    icon: Icon(Icons.event),
+                    dateLabelText: 'Date',
+                    timeLabelText: "Hour",
+                    onSaved: (val) => setState(() => date.text = val ?? ""),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 20),

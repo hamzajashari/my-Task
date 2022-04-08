@@ -6,6 +6,7 @@ import 'package:myTask/Shared%20Data/colors.dart';
 import 'package:myTask/Shared%20Data/inputFields.dart';
 import 'package:myTask/Shared%20Data/styles.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'SignInPage.dart';
 
 
@@ -68,6 +69,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     try{
                       await _auth.createUserWithEmailAndPassword(
                           email: emailController.text, password: passwordController.text);
+                      final prefs = await SharedPreferences.getInstance();
+                      await prefs.setString("user",this.emailController.text);
                       Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (contex) => navbarscreen(),

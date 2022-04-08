@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:myTask/Model/Task.dart';
 import 'package:myTask/Shared%20Data/buttons.dart';
 import 'package:myTask/Shared%20Data/colors.dart';
 import 'package:myTask/Shared%20Data/styles.dart';
 import 'package:page_transition/page_transition.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:date_time_picker/date_time_picker.dart';
 import '../../Screens/navbarscreen.dart';
-import '../Firebase.dart';
+import '../DB/Firebase.dart';
 import 'Edit-Task.dart';
 
 class TaskPage extends StatefulWidget {
@@ -20,10 +20,20 @@ class TaskPage extends StatefulWidget {
 
 class _TaskPageState extends State<TaskPage> {
   List<Task> data = [];
+  String user="";
+
+  String datePicker ="";
   @override
   void initState() {
     super.initState();
+    getUser();
   }
+  Future<void> getUser() async {
+   final prefs = await SharedPreferences.getInstance();
+    Firebase().user=prefs.getString("user").toString();
+    user=prefs.getString("user".toString())!;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,6 +62,7 @@ class _TaskPageState extends State<TaskPage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: 'Task Add',
         onPressed: () => modalCreate(context),
         tooltip: 'Add new task',
         child: Icon(Icons.add),
@@ -175,7 +186,7 @@ class _TaskPageState extends State<TaskPage> {
           content: Form(
             key: form,
             child: Container(
-              height: MediaQuery.of(context).size.height /3,
+              height: MediaQuery.of(context).size.height / 2.8,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -206,35 +217,47 @@ class _TaskPageState extends State<TaskPage> {
                     ),
                     controller: description,
                   ),
-                  Text('Date'),
-                  TextField(
-                    controller: date, //editing controller of this TextField
-                    decoration: InputDecoration(
-                        icon: Icon(Icons.calendar_today), //icon of text field
-                        labelText: "Enter Date" //label text of field
-                    ),
-                    readOnly: true,  //set it true, so that user will not able to edit text
-                    onTap: () async {
-                      DateTime? pickedDate = await showDatePicker(
-                          context: context, initialDate: DateTime.now(),
-                          firstDate: DateTime(2000), //DateTime.now() - not to allow to choose before today.
-                          lastDate: DateTime(2101)
-                      );
-
-                      if(pickedDate != null ){
-                        print(pickedDate);  //pickedDate output format => 2021-03-10 00:00:00.000
-                        String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
-                        print(formattedDate); //formatted date output using intl package =>  2021-03-16
-                        //you can implement different kind of Date Format here according to your requirement
-
-                        setState(() {
-                          date.text = formattedDate; //set output date to TextField value.
-                        });
-                      }else{
-                        print("Date is not selected");
-                      }
-                    },
-                  )
+                  // Text('Date'),
+                  // TextField(
+                  //   controller: date, //editing controller of this TextField
+                  //   decoration: InputDecoration(
+                  //       icon: Icon(Icons.calendar_today), //icon of text field
+                  //       labelText: "Enter Date" //label text of field
+                  //   ),
+                  //   readOnly: true,  //set it true, so that user will not able to edit text
+                  //   onTap: () async {
+                  //     DateTime? pickedDate = await showDatePicker(
+                  //         context: context, initialDate: DateTime.now(),
+                  //         firstDate: DateTime(2000), //DateTime.now() - not to allow to choose before today.
+                  //         lastDate: DateTime(2101)
+                  //     );
+                  //
+                  //     if(pickedDate != null ){
+                  //       print(pickedDate);  //pickedDate output format => 2021-03-10 00:00:00.000
+                  //       String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+                  //       print(formattedDate); //formatted date output using intl package =>  2021-03-16
+                  //       //you can implement different kind of Date Format here according to your requirement
+                  //
+                  //       setState(() {
+                  //         date.text = formattedDate; //set output date to TextField value.
+                  //       });
+                  //     }else{
+                  //       print("Date is not selected");
+                  //     }
+                  //   },
+                  // ),
+                DateTimePicker(
+                type: DateTimePickerType.dateTimeSeparate,
+                dateMask: 'd MMM, yyyy',
+                controller: date,
+               // initialValue: DateTime.now().toString(),
+                firstDate: DateTime(2000),
+                lastDate: DateTime(2100),
+                icon: Icon(Icons.event),
+                dateLabelText: 'Date',
+                timeLabelText: "Hour",
+                  onSaved: (val) => setState(() => date.text = val ?? ""),
+              ),
                 ],
               ),
             ),
@@ -245,7 +268,8 @@ class _TaskPageState extends State<TaskPage> {
             }),
             myTaskFlatBtn('Create', () async {
               if (form.currentState!.validate()) {
-                Firebase().create(name.text, description.text,date.text);
+                print(date.text);
+                Firebase().create(name.text, description.text,date.text,user);
                 Navigator.push(
                   context,
                   PageTransition(
